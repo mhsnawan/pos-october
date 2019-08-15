@@ -1,0 +1,253 @@
+url = "admin/orders"
+layout = "admin"
+[Products]
+[Orders]
+==
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="row">
+                <div class="col-sm-2">
+                    <h3 class="box-title m-b-0">Products</h3>
+                </div>
+            </div>
+            <br>
+            <!-- <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p> -->
+
+            <div class="col-md-6">
+                <br><br>
+                <div style="padding-bottom: 10px;"></div>
+                <div class="table-responsive">
+                    <table id="order" class="display nowrap table color-bordered-table muted-bordered-table table-striped" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <!-- <tfoot>
+                            <tr>
+
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                            </tr>
+                        </tfoot> -->
+                        <tbody id="add-order">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <table id="example23" class="display nowrap table color-bordered-table muted-bordered-table table-striped" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>S #</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Retail Price</th>
+                                <th>Sale Price</th>
+                                <th>Add</th>
+                            </tr>
+                        </thead>
+                        <!-- <tfoot>
+                            <tr>
+                                <th>S #</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Retail Price</th>
+                                <th>Sale Price</th>
+                                <th>Add</th>
+                            </tr>
+                        </tfoot> -->
+                        <tbody>
+                            {% for product in products %}
+                            <tr onclick="addOrder({{product}})">
+                                <td >{{loop.index}}</td>
+                                <td>{{product.name}}</td>
+                                {% for category in categories%}
+                                {% if category.id == product.category_id%}
+                                <td>{{category.name}}</td>
+                                {% endif %}
+                                {% endfor %}
+                                <td>Rs. {{product.retail_price}}</td>
+                                <td>Rs. {{product.sale_price}}</td>
+                                <td>
+                                    <a href="#" data-toggle="tooltip" data-original-title="Add to List" >
+                                    <i class="fa fa-plus text-inverse m-r-10"></i> </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="row m-t-30 minus-margin">
+                        <div class="col-sm-6 col-sm-2 b-t b-r">
+                            <ul class="expense-box">
+                                <li><i class="fa fa-money text-info"></i><span><h2 id="sub-total">Rs. 0</h2><h4>Total</h4></span></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-5 col-sm-2  b-t">
+                            <ul class="expense-box">
+                                <li><i class="fa fa-plus-square text-info"></i><span><h2><input type="number" value="0" onchange="onDiscount()" style="border: none;background: transparent;"></h2><h4>Discount</h4></span></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 col-sm-2 b-t b-r">
+                            <ul class="expense-box">
+                                <li><i class="ti-hand-point-right text-info"></i><span><h2><input type="number" id="cash" value="0" onchange="onCash()" style="border: none;background: transparent;"></h2><h4>Cash</h4></span></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 col-sm-2 b-t b-r">
+                            <ul class="expense-box">
+                                <li><i class="fa fa-money text-info"></i><span><h2 id="return-cash">Rs. 0</h2><h4>Return</h4></span></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 col-sm-2 b-t b-r">
+                            <ul class="expense-box">
+                                <form data-request="onCheckout" data-request-files data-request-flash method="POST">
+                                <i class="fa fa-checkout text-info"></i><button type="submit" class="btn btn-info btn-circle btn-xl" onclick="onCheckout()"><i class="fa fa-shopping-basket"></i> </button><span><h4>Checkout</h4></span>
+                                <input type="hidden" id="product_ids" name="product_ids">
+                                <input type="hidden" id="quantities" name="quantities">
+                                <input type="hidden" id="total" name="total">
+                                <input type="hidden" id="discount" name="discount">
+                                <input type="hidden" id="unit_prices" name="unit_prices">
+                                </form>
+                            </ul>
+                        </div>
+                        <!-- <div class="col-sm-5 col-sm-3 b-t b-r">
+                            <ul class="expense-box">
+                                <li><i class="fa fa-money text-info"></i><span><h2 id="return-cash">Rs. 0</h2><h4>Change</h4></span></li>
+                            </ul>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="{{ 'assets/admin/plugins/bower_components/jquery/dist/jquery.min.js'|theme }}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ 'assets/admin/bootstrap/dist/js/bootstrap.min.js'|theme }}"></script>
+    <!-- Menu Plugin JavaScript -->
+    <script src="{{ 'assets/admin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js'|theme }}"></script>
+    <!--slimscroll JavaScript -->
+    <script src="{{ 'assets/admin/js/jquery.slimscroll.js'|theme }}"></script>
+    <!--Wave Effects -->
+    <script src="{{ 'assets/admin/js/waves.js'|theme }}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ 'assets/admin/js/custom.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/plugins/bower_components/datatables/jquery.dataTables.min.js'|theme }}"></script>
+    <!-- start - This is for export functionality only -->
+    <!-- <script src="{{ 'assets/admin/data-table/dataTables.buttons.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/buttons.flash.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/jszip.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/pdfmake.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/vfs_fonts.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/buttons.html5.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/buttons.print.min.js'|theme }}"></script> -->
+    <!-- end - This is for export functionality only -->
+    <script>
+    let count = 0;
+    var ids = [];
+    var product_ids = [];
+    var quantities = [];
+    var unit_price = [];
+    var subTotal = 0;
+    var discount = 0;
+    var table = document.getElementById('order');
+    function addOrder(product){
+        // var rowTable = $("#order").dataTable();
+        count++;
+        $('#add-order').append(`
+            <tr id=${count}>
+                <td>${product.name}</td>
+                <td><input type="number" id="quantity${count}" value="1" onChange="onQuantity(${count}, '${product.retail_price}')" style="border: none;background: transparent;"></td>
+                <td><input type="number" id="price${count}" value="${product.retail_price}" style="border: none;background: transparent;" readonly></td>
+                <td><a href="#" onClick="onRemove(${count})" data-toggle="tooltip" data-original-title="Remove"><i class="fa fa-trash text-inverse m-r-10"></i> </a></td>
+            </tr>
+        `);
+        ids.push(count);
+        product_ids.push(product.id);
+        quantities.push(1);
+        unit_price.push(product.retail_price);
+        calTotal(count);
+    }
+
+    function onQuantity(id, detail){
+        var quan = "quantity"+id;
+        var price = "price"+id;
+        var quantity = document.getElementById(quan).value;
+        document.getElementById(price).innerHTML = detail*quantity;
+        var index = ids.indexOf(id);
+        quantities[index] = quantity;
+        calTotal(id);
+    }
+
+    function calTotal(id) {
+        var table = document.getElementById('order');
+        subTotal = 0;
+        console.log(table.rows.length);
+        for(var i=1; i<(table.rows.length); i++){
+            var quan = "quantity"+(ids[i-1]);
+            var pri = "price"+(ids[i-1]);
+            var quantity = document.getElementById(quan).value;
+            var price = document.getElementById(pri).value;
+            subTotal = subTotal + (price*quantity);
+        }
+        sub = document.getElementById('sub-total').innerHTML = subTotal;
+        console.log(subTotal);
+    }
+
+    function onCheckout(){
+        document.getElementById('product_ids').value = JSON.stringify(product_ids);
+        document.getElementById('quantities').value = JSON.stringify(quantities);
+        document.getElementById('total').value = JSON.stringify(subTotal);
+        document.getElementById('discount').value = JSON.stringify(discount);
+        document.getElementById('unit_prices').value = JSON.stringify(unit_price);
+    }
+
+    function onCash(){
+    document.getElementById('return-cash').innerHTML = "Rs. " + (document.getElementById('cash').value - subTotal);
+    }
+
+    function onRemove(id){
+        var remove = '#'+id;
+        $(remove).remove();
+        var index = ids.indexOf(id);
+        if (index > -1) {
+        ids.splice(index, 1);
+        }
+        product_ids.splice(index, 1);
+        quantities.splice(index, 1);
+        unit_price.splice(index, 1);
+        calTotal();
+    }
+
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
+    $('#example23').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        "pageLength": 5
+    });
+    // $('#order').DataTable({
+    //     dom: 'Bfrtip',
+    //     buttons: [
+    //         'copy', 'csv', 'excel', 'pdf', 'print'
+    //     ],
+    //     "pageLength": 5
+    // });
+
+    </script>
+    <!--Style Switcher -->
+    <script src="{{ 'assets/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js'|theme }}"></script>

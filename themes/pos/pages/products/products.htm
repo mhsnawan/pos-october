@@ -1,0 +1,119 @@
+url = "admin/products"
+layout = "admin"
+[Products]
+==
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="row">
+                <div class="col-sm-2">
+                    <h3 class="box-title m-b-0">Products</h3>
+                </div>
+                <div class="col-sm-6">
+                    <a href="/admin/add-products"><button class="btn btn-info">Add Products</button></a>
+                </div>
+            </div>
+            <br>
+            <!-- <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p> -->
+            <div class="table-responsive">
+                <table id="example23" class="display nowrap table color-bordered-table muted-bordered-table table-striped" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>S #</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Barcode</th>
+                            <th>Company</th>
+                            <th>Retail Price</th>
+                            <th>Sale Price</th>
+                            <th>Discount</th>
+                            <th>Manufacture Date</th>
+                            <th>Expiry Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>S #</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Barcode</th>
+                            <th>Company</th>
+                            <th>Retail Price</th>
+                            <th>Sale Price</th>
+                            <th>Discount</th>
+                            <th>Manufacture Date</th>
+                            <th>Expiry Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for product in products %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{product.name}}</td>
+                            {% for category in categories%}
+                            {% if category.id == product.category_id%}
+                            <td>{{category.name}}</td>
+                            {% endif %}
+                            {% endfor %}
+                            <td>{{product.barcode}}</td>
+                            <td>{{product.company}}</td>
+                            <td>Rs. {{product.retail_price}}</td>
+                            <td>Rs. {{product.sale_price}}</td>
+                            <td>Rs. {{product.discount}}</td>
+                            <td>{{product.manufacturing_date}}</td>
+                            <td>{{product.expiry_date}}</td>
+                            <td class="text-nowrap">
+                                <a href="#" data-toggle="tooltip" data-original-title="Edit" data-request="onEditProduct"
+                                data-request-flash data-request-data="id: '{{product.id}}'" data-request-redirect="/admin/edit-product">
+                                <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                <a href="#" data-toggle="tooltip" data-original-title="Delete" data-request="onDeleteProduct"
+                                data-request-flash data-request-redirect="/admin/products"
+                                data-request-data="id:'{{product.id}}'"> <i class="fa fa-close text-danger"></i> </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="{{ 'assets/admin/plugins/bower_components/jquery/dist/jquery.min.js'|theme }}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ 'assets/admin/bootstrap/dist/js/bootstrap.min.js'|theme }}"></script>
+    <!-- Menu Plugin JavaScript -->
+    <script src="{{ 'assets/admin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js'|theme }}"></script>
+    <!--slimscroll JavaScript -->
+    <script src="{{ 'assets/admin/js/jquery.slimscroll.js'|theme }}"></script>
+    <!--Wave Effects -->
+    <script src="{{ 'assets/admin/js/waves.js'|theme }}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ 'assets/admin/js/custom.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/plugins/bower_components/datatables/jquery.dataTables.min.js'|theme }}"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="{{ 'assets/admin/data-table/dataTables.buttons.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/buttons.flash.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/jszip.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/pdfmake.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/vfs_fonts.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/buttons.html5.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/buttons.print.min.js'|theme }}"></script>
+    <!-- end - This is for export functionality only -->
+    <script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
+    $('#example23').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+    </script>
+    <!--Style Switcher -->
+    <script src="{{ 'assets/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js'|theme }}"></script>

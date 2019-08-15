@@ -1,0 +1,6 @@
+plugin:
+    name: 'mohsindev.admin::lang.plugin.name'
+    description: 'mohsindev.admin::lang.plugin.description'
+    author: Mohsindev
+    icon: oc-icon-adjust
+    homepage: ''

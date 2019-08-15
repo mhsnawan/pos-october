@@ -1,0 +1,148 @@
+url = "admin/expenses"
+layout = "admin"
+title = "Categories"
+[Expenses]
+==
+<!-- .row -->
+<div class="row">
+    <div class="col-sm-8">
+        <div class="white-box">
+            <h3 class="box-title m-b-0">Expenses</h3>
+            <!-- <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p> -->
+            <div class="table-responsive">
+                <table id="example23" class="display nowrap table table-striped" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>S #</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                    </thead>
+                    <tbody>
+                        {% for expense in expenses %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{expense.name}}</td>
+                            <td>{{expense.price}}</td>
+                            <td class="text-nowrap">
+                                <a href="#" onClick = "openmodal({{expense.id}},'{{expense.name}}', {{expense.price}}, '{{expense.description}}')" data-original-title="Edit" > <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                <a href="#" data-toggle="tooltip" data-original-title="Delete" data-request="onDeleteCategory"
+                                data-request-flash data-request-redirect="/admin/categories"
+                                data-request-data="id:'{{expense.id}}'"> <i class="fa fa-close text-danger"></i> </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="white-box">
+            <h3 class="box-title m-b-0">Add Categories</h3>
+            <p class="text-muted m-b-30 font-13">  </p>
+            <form class="form-horizontal" data-request="onCreate" data-request-redirect="/admin/categories" data-request-files data-request-flash method="POST">
+
+                <div class="form-group">
+                    <label class="col-md-12">Name</label>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control" name="name" value="" placeholder="Expense Name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12">Price</label>
+                    <div class="col-md-12">
+                        <input type="number" class="form-control" name="price" value="" placeholder="Price" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12">Description</label>
+                    <div class="col-md-12">
+                        <textarea class="form-control form-control-line" rows="5" name="description"></textarea>
+                    </div>
+                </div>
+                <div class="fileupload btn btn-danger btn-rounded waves-effect waves-light"><span><i class="ion-upload m-r-5"></i>Add</span>
+                    <input type="submit" class="upload">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- /.modal -->
+        <!-- sample modal content -->
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="editcategory">Edit Expense</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form data-request="onUpdate" data-request-redirect="/admin/categories" data-request-files data-request-flash method="POST">
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">Name:</label>
+                                <input type="hidden" id="id" name="id">
+                                <input type="text" id="name" name="name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">Price:</label>
+                                <input type="number" id="price" name="price" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">Description:</label>
+                                <textarea class="form-control form-control-line" rows="5" id="description" name="description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <script type="text/javascript">
+            function openmodal(id, name, price, description) {
+                document.getElementById('id').value = id;
+                document.getElementById('name').value = name;
+                document.getElementById('price').value = price;
+                document.getElementById('description').value = description;
+                $('.bs-example-modal-sm').modal();
+            }
+        </script>
+<!-- /.row -->
+  <!-- /#wrapper -->
+    <!-- jQuery -->
+    <!-- <script src="{{ 'assets/admin/plugins/bower_components/jquery/dist/jquery.min.js'|theme }}"></script> -->
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ 'assets/admin/bootstrap/dist/js/bootstrap.min.js'|theme }}"></script>
+    <!-- Menu Plugin JavaScript -->
+    <script src="{{ 'assets/admin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js'|theme }}"></script>
+    <!--slimscroll JavaScript -->
+    <script src="{{ 'assets/admin/js/jquery.slimscroll.js'|theme }}"></script>
+    <!--Wave Effects -->
+    <script src="{{ 'assets/admin/js/waves.js'|theme }}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ 'assets/admin/js/custom.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/plugins/bower_components/datatables/jquery.dataTables.min.js'|theme }}"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="{{ 'assets/admin/data-table/dataTables.buttons.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/buttons.flash.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/jszip.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/pdfmake.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/vfs_fonts.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/buttons.html5.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/buttons.print.min.js'|theme }}"></script>
+    <!-- end - This is for export functionality only -->
+    <script>
+    $('#example23').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+    </script>
