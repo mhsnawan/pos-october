@@ -1,6 +1,19 @@
-url = "admin/products"
+url = "products"
 layout = "admin"
 [Products]
+[account]
+[session]
+==
+<?php
+function onStart(){
+    $user = Auth::getUser();
+
+    if(!$user)
+    {
+        return redirect('/login');
+    }
+}
+?>
 ==
 
 <div class="row">
@@ -11,7 +24,7 @@ layout = "admin"
                     <h3 class="box-title m-b-0">Products</h3>
                 </div>
                 <div class="col-sm-6">
-                    <a href="/admin/add-products"><button class="btn btn-info">Add Products</button></a>
+                    <a href="/add-products"><button class="btn btn-info">Add Products</button></a>
                 </div>
             </div>
             <br>
@@ -28,6 +41,7 @@ layout = "admin"
                             <th>Retail Price</th>
                             <th>Sale Price</th>
                             <th>Discount</th>
+                            <th>Stock</th>
                             <th>Manufacture Date</th>
                             <th>Expiry Date</th>
                             <th>Actions</th>
@@ -43,6 +57,7 @@ layout = "admin"
                             <th>Retail Price</th>
                             <th>Sale Price</th>
                             <th>Discount</th>
+                            <th>Stock</th>
                             <th>Manufacture Date</th>
                             <th>Expiry Date</th>
                             <th>Actions</th>
@@ -63,14 +78,15 @@ layout = "admin"
                             <td>Rs. {{product.retail_price}}</td>
                             <td>Rs. {{product.sale_price}}</td>
                             <td>Rs. {{product.discount}}</td>
+                            <td>{{product.stock}}</td>
                             <td>{{product.manufacturing_date}}</td>
                             <td>{{product.expiry_date}}</td>
                             <td class="text-nowrap">
                                 <a href="#" data-toggle="tooltip" data-original-title="Edit" data-request="onEditProduct"
-                                data-request-flash data-request-data="id: '{{product.id}}'" data-request-redirect="/admin/edit-product">
+                                data-request-flash data-request-data="id: '{{product.id}}'" data-request-redirect="/edit-product">
                                 <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
                                 <a href="#" data-toggle="tooltip" data-original-title="Delete" data-request="onDeleteProduct"
-                                data-request-flash data-request-redirect="/admin/products"
+                                data-request-flash data-request-redirect="/products"
                                 data-request-data="id:'{{product.id}}'"> <i class="fa fa-close text-danger"></i> </a>
                             </td>
                         </tr>

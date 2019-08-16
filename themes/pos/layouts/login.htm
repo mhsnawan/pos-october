@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="{{ 'assets/admin/october/jquery-3.4.1.min.js'|theme }}"></script>
+        {% framework extras %}
+        {% partial "/login/head" %}
+    </head>
+    <body>
+    <!-- Preloader -->
+        <div class="preloader">
+            <div class="cssload-speeding-wheel"></div>
+        </div>
+        {% page %}
+    </body>
+    {% partial "/login/scripts" %}
+</html>

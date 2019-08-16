@@ -2,24 +2,24 @@
 <html lang="en">
 
 <head>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="{{ 'assets/admin/october/jquery-3.4.1.min.js'|theme }}"></script>
     {% framework extras %}
-    {% partial "head" %}
+    {% partial "/admin/head" %}
 </head>
 
 <body class="fix-header">
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-static-top m-b-0">
-            {% partial "nav" %}
+            {% partial "/admin/nav" %}
         </nav>
         <div class="navbar-default sidebar" role="navigation">
-            {% partial "sidebar" %}
+            {% partial "/admin/sidebar" %}
         </div>
         <div id="page-wrapper">
             <div class="container-fluid">
                 {% page %}
             </div>
-            {% partial "footer" %}
+            {% partial "/admin/footer" %}
 
         </div>
     </div>

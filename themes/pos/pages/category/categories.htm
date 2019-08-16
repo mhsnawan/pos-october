@@ -1,7 +1,20 @@
-url = "admin/categories"
+url = "categories"
 layout = "admin"
 title = "Categories"
 [Categories]
+[account]
+[session]
+==
+<?php
+function onStart(){
+    $user = Auth::getUser();
+
+    if(!$user)
+    {
+        return redirect('/login');
+    }
+}
+?>
 ==
 <!-- .row -->
 <div class="row">
@@ -25,7 +38,7 @@ title = "Categories"
                             <td class="text-nowrap">
                                 <a href="#" onClick = "openmodal({{category.id}},'{{category.name}}')" data-original-title="Edit" > <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
                                 <a href="#" data-toggle="tooltip" data-original-title="Delete" data-request="onDeleteCategory"
-                                data-request-flash data-request-redirect="/admin/categories"
+                                data-request-flash data-request-redirect="/categories"
                                 data-request-data="id:'{{category.id}}'"> <i class="fa fa-close text-danger"></i> </a>
                             </td>
                         </tr>
@@ -39,12 +52,12 @@ title = "Categories"
         <div class="white-box">
             <h3 class="box-title m-b-0">Add Categories</h3>
             <p class="text-muted m-b-30 font-13">  </p>
-            <form class="form-horizontal" data-request="onCreate" data-request-redirect="/admin/categories" data-request-files data-request-flash method="POST">
+            <form class="form-horizontal" data-request="onCreate" data-request-redirect="/categories" data-request-files data-request-flash method="POST">
 
                 <div class="form-group">
                     <label class="col-md-12">Name</label>
                     <div class="col-md-12">
-                        <input type="text" class="form-control" name="name" value="" placeholder="Add Category Name">
+                        <input type="text" class="form-control" name="name" placeholder="Add Category Name" required>
                     </div>
                 </div>
                 <div class="fileupload btn btn-danger btn-rounded waves-effect waves-light"><span><i class="ion-upload m-r-5"></i>Add</span>
@@ -65,11 +78,11 @@ title = "Categories"
                         <h4 class="modal-title" id="editcategory">Edit Category</h4>
                     </div>
                     <div class="modal-body">
-                        <form data-request="onEditCategory" data-request-redirect="/admin/categories" data-request-files data-request-flash method="POST">
+                        <form data-request="onEditCategory" data-request-redirect="/categories" data-request-files data-request-flash method="POST">
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Name:</label>
                                 <input type="hidden" id="id" name="id">
-                                <input type="text" id="name" name="name" class="form-control">
+                                <input type="text" id="name" name="name" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary">
