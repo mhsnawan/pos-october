@@ -11,7 +11,8 @@ class Plugin extends PluginBase
             'Mohsindev\Admin\Components\Products' => 'Products',
             'Mohsindev\Admin\Components\Expenses' => 'Expenses',
             'Mohsindev\Admin\Components\Orders' => 'Orders',
-            'Mohsindev\Admin\Components\OrderProducts' => 'OrderProducts'
+            'Mohsindev\Admin\Components\OrderProducts' => 'OrderProducts',
+            'Mohsindev\Admin\Components\Sales' => 'Sales'
 
         ];
     }
