@@ -21,6 +21,7 @@ function onStart(){
     else {
         return redirect('/expire');
     }
+
 }
 ?>
 ==
@@ -49,14 +50,6 @@ function onStart(){
                                 <th>Delete</th>
                             </tr>
                         </thead>
-                        <!-- <tfoot>
-                            <tr>
-
-                                <th>Name</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                            </tr>
-                        </tfoot> -->
                         <tbody id="add-order">
                         </tbody>
                     </table>
@@ -151,6 +144,33 @@ function onStart(){
         <!-- </div> --> <!-- White BOX-->
     </div>
 </div>
+<!-- /.row -->
+<div class="row" style="display: none">
+    <div class="col-md-12">
+        <div class="white-box printableArea">
+            <h2 style="text-align: center"><b>Chemist Store</b></h2>
+            <h3><b>INVOICE</b> <span class="pull-right">#5669627</span></h3>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive m-t-40" style="clear: both;">
+                        <table class="table table-hover" id="invoice-table">
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="pull-right m-t-30 text-right">
+                        <p>Total Amount: <b id="invoice-total"></b></p>
+                        <p>Discount : <b id="invoice-discount"></b> </p>
+                        <hr>
+                        <!-- <h3><b>Total :</b> $13,986</h3> </div> -->
+                    <div class="clearfix"></div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <!-- /#wrapper -->
     <!-- jQuery -->
     <script src="{{ 'assets/admin/plugins/bower_components/jquery/dist/jquery.min.js'|theme }}"></script>
@@ -235,6 +255,19 @@ function onStart(){
         document.getElementById('total').value = JSON.stringify(subTotal);
         document.getElementById('discount').value = JSON.stringify(discount);
         document.getElementById('unit_prices').value = JSON.stringify(unit_price);
+        var $invoice_detail = $('#order').clone();
+        $('#invoice-table').html($invoice_detail);
+        var $total = $('#total').clone();
+        $('#invoice-total').html($total);
+        var $total = $('#discount').clone();
+        $('#invoice-discount').html($total);
+        var mode = 'iframe'; //popup
+            var close = mode == "popup";
+            var options = {
+                mode: mode,
+                popClose: close
+        };
+        $("div.printableArea").printArea(options);
     }
 
     function onCash(){
@@ -274,4 +307,5 @@ function onStart(){
 
     </script>
     <!--Style Switcher -->
+    <script src="{{ 'assets/admin/js/jquery.PrintArea.js'|theme }}" type="text/JavaScript"></script>
     <script src="{{ 'assets/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js'|theme }}"></script>
