@@ -1,0 +1,23 @@
+url = "expire"
+layout = "login"
+title = "Categories"
+[Categories]
+[Subscription]
+[account]
+[session]
+==
+<?php
+function onStart(){
+    $user = Auth::getUser();
+
+    if(!$user)
+    {
+        return redirect('/login');
+    }
+}
+?>
+==
+<!-- .row -->
+<div class="row">
+    <h1>Your subscription has been expired</h1>
+</div>

@@ -2,6 +2,8 @@
 
 use Cms\Classes\ComponentBase;
 use Mohsindev\Admin\Models\Categories as CategoryModel;
+use Illuminate\Support\Facades\Hash;
+use Mohsindev\Admin\Models\Subscription as SubscriptionModel;
 use Flash;
 
 class Categories extends ComponentBase

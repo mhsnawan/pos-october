@@ -8,10 +8,17 @@ title = "Categories"
 <?php
 function onStart(){
     $user = Auth::getUser();
-
-    if(!$user)
-    {
-        return redirect('/login');
+    $subs =  \Mohsindev\Admin\Models\Subscription::find(1);
+    $check = Hash::check('PqPVoRXEIV6pGjzEaMle', $subs->key);
+    $date_check = (\Carbon\Carbon::parse($subs->expiry_date)->gt(\Carbon\Carbon::now()));
+    if($check && $date_check){
+        if(!$user)
+        {
+            return redirect('/login');
+        }
+    }
+    else {
+        return redirect('/expire');
     }
 }
 ?>
