@@ -38,7 +38,7 @@ function onStart(){
 <div class="row">
     <div class="col-md-3 col-xs-12 col-sm-6">
         <div class="white-box m-b-0 bg-danger">
-            <h3 class="text-white box-title">Todays Sales <span class="pull-right"> {{todays_count}}</span></h3>
+            <h3 class="text-white box-title">Todays Sales <span class="pull-right"> {{today_count}}</span></h3>
             <div id="sparkline1dash"></div>
         </div>
         <div class="white-box">
@@ -115,28 +115,28 @@ function onStart(){
         <div class="white-box">
             <h3 class="box-title">Daily Expense</h3>
             <div class="text-right"> <span class="text-muted">Daily Expense</span>
-                <h3><sup><i class="ti-arrow-up text-success"></i></sup> $12,000</h3> </div>
+                <h3><sup></sup> {{ total_today_expense }}</h3> </div>
         </div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
         <div class="white-box">
             <h3 class="box-title">Weekly Expense</h3>
             <div class="text-right"> <span class="text-muted">Weekly Expense</span>
-                <h3><sup><i class="ti-arrow-down text-danger"></i></sup> PKR {{total_weekly_expense}}</h3> </div>
+                <h3><sup></sup> PKR {{total_weekly_expense}}</h3> </div>
         </div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
         <div class="white-box">
             <h3 class="box-title">Monthly Expense</h3>
             <div class="text-right"> <span class="text-muted">Monthly Expense</span>
-                <h3><sup><i class="ti-arrow-up text-info"></i></sup> PKR {{total_monthly_expense}}</h3> </div>
+                <h3><sup></sup> PKR {{total_monthly_expense}}</h3> </div>
         </div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
         <div class="white-box">
             <h3 class="box-title">Yearly Expense</h3>
             <div class="text-right"> <span class="text-muted">Yearly Expense</span>
-                <h3><sup><i class="ti-arrow-up text-inverse"></i></sup> PKR {{total_yearly_expense}}</h3> </div>
+                <h3><sup></sup> PKR {{total_yearly_expense}}</h3> </div>
         </div>
     </div>
 </div>

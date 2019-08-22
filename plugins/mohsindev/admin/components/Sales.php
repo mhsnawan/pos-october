@@ -22,23 +22,31 @@ class Sales extends ComponentBase
     }
 
     public function onRun (){
+        //$today = \Carbon\Carbon::now();
         $start_week = \Carbon\Carbon::now()->startOfWeek();
         $end_week = \Carbon\Carbon::now()->endOfWeek();
         $start_month = \Carbon\Carbon::now()->startOfMonth();
         $end_month = \Carbon\Carbon::now()->endOfMonth();
         $start_year = \Carbon\Carbon::now()->startOfYear();
         $end_year = \Carbon\Carbon::now()->endOfYear();
-        $current =  \Carbon\Carbon::now();
+        $current =  \Carbon\Carbon::now()->toDateString();
         // SALES
         $total_weekly_sales = 0;
         $total_monthly_sales = 0;
         $total_yearly_sales = 0;
+        $this->page['today'] = $today = OrdersModel::whereDate('created_at', $current)->get();
         $this->page['weekly'] = $weekly = OrdersModel::whereBetween('created_at', [$start_week, $end_week])->get();
         $this->page['monthly'] = $monthly = OrdersModel::whereBetween('created_at', [$start_month, $end_month])->get();
         $this->page['yearly'] = $yearly = OrdersModel::whereBetween('created_at', [$start_year, $end_year])->get();
+        $this->page['today_count'] = count($today);
         $this->page['weekly_count'] = count($weekly);
         $this->page['monthly_count'] = count($monthly);
         $this->page['yearly_count'] = count($yearly);
+
+        for($i=0; $i<count($today); $i++){
+            $this->page['total_today_sales'] = $total_yearly_sales + $today[$i]->price;
+        }
+
         for($i=0; $i<count($weekly); $i++){
             $this->page['total_weekly_sales'] = $total_weekly_sales + $weekly[$i]->price;
         }
@@ -50,18 +58,28 @@ class Sales extends ComponentBase
         for($i=0; $i<count($yearly); $i++){
             $this->page['total_yearly_sales'] = $total_yearly_sales + $monthly[$i]->price;
         }
+
         // SALES
 
         // EXPENSE
+        $total_today_expense = 0;
         $total_weekly_expense = 0;
         $total_monthly_expense = 0;
         $total_yearly_expense = 0;
+        //$t_expense = ExpenseModel::whereDate('created_at', $today)->get();
+        $t_expense = ExpenseModel::whereDate('created_at', $current)->get();
         $w_expense = ExpenseModel::whereBetween('created_at', [$start_week, $end_week])->get();
         $m_expense = ExpenseModel::whereBetween('created_at', [$start_month, $end_month])->get();
         $y_expense = ExpenseModel::whereBetween('created_at', [$start_year, $end_year])->get();
+        $this->page['expense_today_count'] = count($t_expense);
         $this->page['expense_weekly_count'] = count($w_expense);
         $this->page['expense_monthly_count'] = count($m_expense);
         $this->page['expense_yearly_count'] = count($y_expense);
+
+        for($i=0; $i<count($t_expense); $i++){
+            $this->page['total_today_expense'] = $total_today_expense + $w_expense[$i]->price;
+        }
+
         for($i=0; $i<count($w_expense); $i++){
             $this->page['total_weekly_expense'] = $total_weekly_expense + $w_expense[$i]->price;
         }
