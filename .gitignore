@@ -3,9 +3,9 @@
 composer.phar
 .DS_Store
 .idea
-.env
-.env.*.php
-.env.php
+# .env
+# .env.*.php
+# .env.php
 php_errors.log
 nginx-error.log
 nginx-access.log
