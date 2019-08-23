@@ -25,10 +25,12 @@ class Orders extends ComponentBase
         $product_ids = json_decode($input['product_ids']);
         $quantities = json_decode($input['quantities']);
         $unit_prices = json_decode($input['unit_prices']);
+        //dd($input);
         $order = OrdersModel::create([
             'user_id' => '1',
-            'price' => $input['total'],
-            'discount' => $input['discount']
+            'price' => $input['price'],
+            'discount' => $input['discount'],
+            'total_price' => $input['total_price']
         ]);
 
         for($i=0; $i<count($product_ids); $i++){

@@ -36,3 +36,9 @@
 1.0.13:
     - 'Created table mohsindev_admin_subscription'
     - builder_table_create_mohsindev_admin_subscription.php
+1.0.14:
+    - 'Updated table mohsindev_admin_orders'
+    - builder_table_update_mohsindev_admin_orders_2.php
+1.0.15:
+    - 'Updated table mohsindev_admin_orders'
+    - builder_table_update_mohsindev_admin_orders_3.php

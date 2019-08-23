@@ -108,7 +108,12 @@ function onStart(){
                         </div>
                         <div class="col-sm-5 col-sm-2  b-t">
                             <ul class="expense-box">
-                                <li><i class="fa fa-plus-square text-info"></i><span><h2><input type="number" value="0" onchange="onDiscount()" style="border: none;background: transparent;"></h2><h4>Discount</h4></span></li>
+                                <li><i class="fa fa-plus-square text-info"></i><span><h2><input type="number" value="0" id="discount-price" onchange="onDiscount()" style="border: none;background: transparent;"></h2><h4>Discount</h4></span></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 col-sm-2 b-t b-r">
+                            <ul class="expense-box">
+                                <li><i class="fa fa-money text-info"></i><span><h2><input type="number" id="collectable" value="0" style="border: none;background: transparent;"></h2><h4>Collectable</h4></span></li>
                             </ul>
                         </div>
                         <div class="col-sm-6 col-sm-2 b-t b-r">
@@ -127,7 +132,8 @@ function onStart(){
                                 <i class="fa fa-checkout text-info"></i><button type="submit" class="btn btn-info btn-circle btn-xl" onclick="onCheckout()"><i class="fa fa-shopping-basket"></i> </button><span><h4>Checkout</h4></span>
                                 <input type="hidden" id="product_ids" name="product_ids">
                                 <input type="hidden" id="quantities" name="quantities">
-                                <input type="hidden" id="total" name="total">
+                                <input type="hidden" id="total" name="price">
+                                <input type="hidden" id="total_price" name="total_price">
                                 <input type="hidden" id="discount" name="discount">
                                 <input type="hidden" id="unit_prices" name="unit_prices">
                                 </form>
@@ -149,7 +155,7 @@ function onStart(){
     <div class="col-md-12">
         <div class="white-box printableArea">
             <h2 style="text-align: center"><b>Chemist Store</b></h2>
-            <h3><b>INVOICE</b> <span class="pull-right">#5669627</span></h3>
+            <h3><b>INVOICE</b> <span class="pull-right"></span></h3>
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -160,8 +166,9 @@ function onStart(){
                 </div>
                 <div class="col-md-12">
                     <div class="pull-right m-t-30 text-right">
-                        <p>Total Amount: <b id="invoice-total"></b></p>
+                        <p>Total Amount: <b id="invoice-sub-total"></b></p>
                         <p>Discount : <b id="invoice-discount"></b> </p>
+                        <p>Collectable : <b id="invoice-collectable"></b> </p>
                         <hr>
                         <!-- <h3><b>Total :</b> $13,986</h3> </div> -->
                     <div class="clearfix"></div>
@@ -202,6 +209,7 @@ function onStart(){
     var unit_price = [];
     var subTotal = 0;
     var discount = 0;
+    var collectableCash = 0;
     var table = document.getElementById('order');
     function addOrder(product){
         // var rowTable = $("#order").dataTable();
@@ -234,6 +242,13 @@ function onStart(){
         calTotal(id);
     }
 
+    function onDiscount(){
+
+        var discount_price = document.getElementById('discount-price').value;
+        collectableCash = subTotal - discount_price;
+        document.getElementById('collectable').value = collectableCash;
+    }
+
     function calTotal(id) {
         var table = document.getElementById('order');
         subTotal = 0;
@@ -250,17 +265,24 @@ function onStart(){
     }
 
     function onCheckout(){
+        var discount_price = document.getElementById('discount-price').value;
+        collectableCash = subTotal - discount_price;
+        document.getElementById('collectable').value = collectableCash;
+        console.log('Discount price is '+ JSON.stringify(discount_price));
+
         document.getElementById('product_ids').value = JSON.stringify(product_ids);
         document.getElementById('quantities').value = JSON.stringify(quantities);
-        document.getElementById('total').value = JSON.stringify(subTotal);
-        document.getElementById('discount').value = JSON.stringify(discount);
+        document.getElementById('total').value = collectableCash;
+        document.getElementById('total_price').value = JSON.stringify(subTotal);
+        document.getElementById('discount').value = discount_price;
         document.getElementById('unit_prices').value = JSON.stringify(unit_price);
+
         var $invoice_detail = $('#order').clone();
         $('#invoice-table').html($invoice_detail);
-        var $total = $('#total').clone();
-        $('#invoice-total').html($total);
-        var $total = $('#discount').clone();
-        $('#invoice-discount').html($total);
+        $('#invoice-sub-total').html(subTotal);
+        $('#invoice-discount').html(discount_price);
+        $('#invoice-collectable').html(collectableCash)
+
         var mode = 'iframe'; //popup
             var close = mode == "popup";
             var options = {
@@ -271,7 +293,10 @@ function onStart(){
     }
 
     function onCash(){
-    document.getElementById('return-cash').innerHTML = "Rs. " + (document.getElementById('cash').value - subTotal);
+    var discount_price = document.getElementById('discount-price').value;
+    collectableCash = subTotal - discount_price;
+    document.getElementById('collectable').value = collectableCash;
+    document.getElementById('return-cash').innerHTML = (document.getElementById('cash').value - collectableCash);
     }
 
     function onRemove(id){

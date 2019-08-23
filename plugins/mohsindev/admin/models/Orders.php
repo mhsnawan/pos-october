@@ -21,5 +21,5 @@ class Orders extends Model
     public $rules = [
     ];
 
-    protected $fillable = ['user_id', 'price', 'discount'];
+    protected $fillable = ['user_id', 'price', 'discount', 'total_price', 'total'];
 }
