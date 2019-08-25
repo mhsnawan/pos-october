@@ -3,6 +3,7 @@
 use Cms\Classes\ComponentBase;
 use Mohsindev\Admin\Models\Orders as OrdersModel;
 use Mohsindev\Admin\Models\OrderProducts as OrderProductsModel;
+use Mohsindev\Admin\Models\Products as ProductModel;
 use Flash;
 
 class Orders extends ComponentBase
@@ -20,6 +21,14 @@ class Orders extends ComponentBase
         return [];
     }
 
+    public function onRun() {
+        $this->page['orders'] = OrdersModel::all();
+    }
+
+    public function onViewOrder(){
+        $this->page['viewOrder'] = OrdersModel::find(8);
+    }
+
     public function onCheckout() {
         $input = post();
         $product_ids = json_decode($input['product_ids']);
@@ -34,6 +43,9 @@ class Orders extends ComponentBase
         ]);
 
         for($i=0; $i<count($product_ids); $i++){
+            $product = ProductModel::find($product_ids[$i]);
+            $product->stock = $product->stock - (int)$quantities[$i];
+            $product->save();
             $total = (int)$quantities[$i]*(int)$unit_prices[$i];
             OrderProductsModel::create([
                 'order_id' => $order->id,

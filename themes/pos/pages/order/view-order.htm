@@ -1,0 +1,164 @@
+url = "/view-order/:id"
+title = 'View Order'
+layout = "admin"
+[Products]
+[Orders]
+[account]
+[session]
+==
+<?php
+function onStart(){
+    $user = Auth::getUser();
+    $subs =  \Mohsindev\Admin\Models\Subscription::find(1);
+    $check = Hash::check('PqPVoRXEIV6pGjzEaMle', $subs->key);
+    $date_check = (\Carbon\Carbon::parse($subs->expiry_date)->gt(\Carbon\Carbon::now()));
+    if($check && $date_check){
+        if(!$user)
+        {
+            return redirect('/login');
+        }
+        else {
+            $order_id = $this->param('id');
+            $this['orderInfo'] = $orderInfo= \Mohsindev\Admin\Models\Orders::find($order_id);
+            $this['orderProducts'] = $orderProducts = \Mohsindev\Admin\Models\OrderProducts::where('order_id', $order_id)->get();
+            //dd($orderProducts);
+        }
+    }
+    else {
+        return redirect('/expire');
+    }
+
+}
+?>
+==
+<div class="row">
+    <div class="col-sm-12">
+        <br>
+        <div class="col-md-6">
+            <div class="row" style="">
+                <div class="col-md-12">
+                    <div class="white-box printableArea">
+                        <h2 style="text-align: center"><b>Chemist Store</b></h2>
+                        <h3><b>INVOICE</b> <span class="pull-right">{{ orderInfo.id }}</span></h3>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive m-t-40" style="clear: both;">
+                                    <table class="table table-hover" id="invoice-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Qt</th>
+                                                <th>Unit Price</th>
+                                                <th>Price</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="add-order">
+                                            {% for orderProduct in orderProducts %}
+                                            <tr>
+                                                <td>{{ orderProduct.id }}</td>
+                                                <td>{{ orderProduct.quantity }}</td>
+                                                <td>{{ orderProduct.unit_price }}</td>
+                                                <td>{{ orderProduct.price }}</td>
+
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="pull-right m-t-30 text-right">
+                                    <p>Total Amount: <b id="invoice-sub-total">{{ orderInfo.total_price }}</b></p>
+                                    <p>Discount : <b id="invoice-discount">{{ orderInfo.discount }}</b> </p>
+                                    <p>Collectable : <b id="invoice-collectable">{{ orderInfo.price }}</b> </p>
+                                    <hr>
+                                    <!-- <h3><b>Total :</b> $13,986</h3> </div> -->
+                                </div>
+                                <div>
+                                    <div class="clearfix"></div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<!-- /.row -->
+<div class="row" style="display: none">
+    <div class="col-md-12">
+        <div class="white-box printableArea">
+            <h2 style="text-align: center"><b>Chemist Store</b></h2>
+            <h3><b>INVOICE</b> <span class="pull-right"></span></h3>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive m-t-40" style="clear: both;">
+                        <table class="table table-hover" id="invoice-table">
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="pull-right m-t-30 text-right">
+                        <p>Total Amount: <b id="invoice-sub-total"></b></p>
+                        <p>Discount : <b id="invoice-discount"></b> </p>
+                        <p>Collectable : <b id="invoice-collectable"></b> </p>
+                        <hr>
+                        <!-- <h3><b>Total :</b> $13,986</h3> </div> -->
+                    <div class="clearfix"></div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="{{ 'assets/admin/plugins/bower_components/jquery/dist/jquery.min.js'|theme }}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ 'assets/admin/bootstrap/dist/js/bootstrap.min.js'|theme }}"></script>
+    <!-- Menu Plugin JavaScript -->
+    <script src="{{ 'assets/admin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js'|theme }}"></script>
+    <!--slimscroll JavaScript -->
+    <script src="{{ 'assets/admin/js/jquery.slimscroll.js'|theme }}"></script>
+    <!--Wave Effects -->
+    <script src="{{ 'assets/admin/js/waves.js'|theme }}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ 'assets/admin/js/custom.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/plugins/bower_components/datatables/jquery.dataTables.min.js'|theme }}"></script>
+    <!-- start - This is for export functionality only -->
+    <!-- <script src="{{ 'assets/admin/data-table/dataTables.buttons.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/buttons.flash.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/jszip.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/pdfmake.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/vfs_fonts.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/buttons.html5.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/buttons.print.min.js'|theme }}"></script> -->
+    <!-- end - This is for export functionality only -->
+    <script>
+
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
+    $('#example23').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        "pageLength": 5
+    });
+    // $('#order').DataTable({
+    //     dom: 'Bfrtip',
+    //     buttons: [
+    //         'copy', 'csv', 'excel', 'pdf', 'print'
+    //     ],
+    //     "pageLength": 5
+    // });
+
+    </script>
+    <!--Style Switcher -->
+    <script src="{{ 'assets/admin/js/jquery.PrintArea.js'|theme }}" type="text/JavaScript"></script>
+    <script src="{{ 'assets/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js'|theme }}"></script>
