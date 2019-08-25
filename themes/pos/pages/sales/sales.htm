@@ -2,6 +2,7 @@ url = "sales"
 layout = "admin"
 [Sales]
 [Subscription]
+[Products]
 [account]
 [session]
 ==
@@ -129,6 +130,58 @@ function onStart(){
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <br>
+        <div style="padding-bottom: 10px;"></div>
+        <h2>Low Stock Products</h2>
+        <div class="table-responsive">
+            <table id="order" class="display nowrap table color-table info-table table-striped" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Barcode</th>
+                        <th>Company</th>
+                        <th>Retail Price</th>
+                        <th>Sale Price</th>
+                        <th>Discount</th>
+                        <th>Stock</th>
+                        <th>Manufacture Date</th>
+                        <th>Expiry Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="add-order">
+                    {% for product in lowStockProducts %}
+                    <tr>
+                        <td>{{product.name}}</td>
+                        {% for category in categories%}
+                        {% if category.id == product.category_id%}
+                        <td>{{category.name}}</td>
+                        {% endif %}
+                        {% endfor %}
+                        <td>{{product.barcode}}</td>
+                        <td>{{product.company}}</td>
+                        <td>Rs. {{product.retail_price}}</td>
+                        <td>Rs. {{product.sale_price}}</td>
+                        <td>Rs. {{product.discount}}</td>
+                        <td>{{product.stock}}</td>
+                        <td>{{product.manufacturing_date}}</td>
+                        <td>{{product.expiry_date}}</td>
+                        <td class="text-nowrap">
+                            <a href="#" data-toggle="tooltip" data-original-title="Edit" data-request="onEditProduct"
+                            data-request-flash data-request-data="id: '{{product.id}}'" data-request-redirect="/edit-product">
+                            <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 <!-- /.row
 <div class="row">
     <div class="col-md-12 col-lg-6 col-sm-12 col-xs-12">

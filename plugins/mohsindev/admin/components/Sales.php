@@ -3,6 +3,7 @@
 use Cms\Classes\ComponentBase;
 use Mohsindev\Admin\Models\Orders as OrdersModel;
 use Mohsindev\Admin\Models\Expenses as ExpenseModel;
+use Mohsindev\Admin\Models\Products as ProductModel;
 use Carbon;
 use Flash;
 
@@ -22,6 +23,7 @@ class Sales extends ComponentBase
     }
 
     public function onRun (){
+        $this->page['lowStockProducts'] = ProductModel::where('stock', '<', 10)->get();
         //$today = \Carbon\Carbon::now();
         $start_week = \Carbon\Carbon::now()->startOfWeek();
         $end_week = \Carbon\Carbon::now()->endOfWeek();
