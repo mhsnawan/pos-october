@@ -22,6 +22,8 @@ class Orders extends ComponentBase
     }
 
     public function onRun() {
+        $id = OrdersModel::latest()->first();
+        $this->page['$invoice_id'] =$invoice_id =  $id->id + 1;
         $this->page['orders'] = OrdersModel::all();
     }
 

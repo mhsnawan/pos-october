@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2019 at 01:31 PM
+-- Generation Time: Aug 25, 2019 at 08:47 PM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -415,13 +415,6 @@ CREATE TABLE `mohsindev_admin_orders` (
   `total_price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `mohsindev_admin_orders`
---
-
-INSERT INTO `mohsindev_admin_orders` (`id`, `user_id`, `price`, `discount`, `created_at`, `updated_at`, `total_price`) VALUES
-(8, 1, 2550, 50, '2019-08-23 06:28:57', '2019-08-23 06:28:57', 2600);
-
 -- --------------------------------------------------------
 
 --
@@ -438,37 +431,6 @@ CREATE TABLE `mohsindev_admin_order_products` (
   `price` int(11) NOT NULL,
   `unit_price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `mohsindev_admin_order_products`
---
-
-INSERT INTO `mohsindev_admin_order_products` (`id`, `order_id`, `product_id`, `quantity`, `created_at`, `updated_at`, `price`, `unit_price`) VALUES
-(1, 1, 3, 1, '2019-08-23 05:51:13', '2019-08-23 05:51:13', 480, 480),
-(2, 1, 4, 1, '2019-08-23 05:51:13', '2019-08-23 05:51:13', 1500, 1500),
-(3, 1, 3, 1, '2019-08-23 05:51:13', '2019-08-23 05:51:13', 480, 480),
-(4, 2, 3, 1, '2019-08-23 06:01:02', '2019-08-23 06:01:02', 480, 480),
-(5, 2, 2, 1, '2019-08-23 06:01:02', '2019-08-23 06:01:02', 1000, 1000),
-(6, 2, 3, 1, '2019-08-23 06:01:02', '2019-08-23 06:01:02', 480, 480),
-(7, 2, 5, 1, '2019-08-23 06:01:02', '2019-08-23 06:01:02', 100, 100),
-(8, 3, 3, 1, '2019-08-23 06:04:48', '2019-08-23 06:04:48', 480, 480),
-(9, 3, 5, 1, '2019-08-23 06:04:48', '2019-08-23 06:04:48', 100, 100),
-(10, 4, 3, 1, '2019-08-23 06:11:19', '2019-08-23 06:11:19', 480, 480),
-(11, 4, 5, 1, '2019-08-23 06:11:19', '2019-08-23 06:11:19', 100, 100),
-(12, 4, 4, 1, '2019-08-23 06:11:19', '2019-08-23 06:11:19', 1500, 1500),
-(13, 5, 3, 1, '2019-08-23 06:12:57', '2019-08-23 06:12:57', 480, 480),
-(14, 5, 4, 1, '2019-08-23 06:12:57', '2019-08-23 06:12:57', 1500, 1500),
-(15, 5, 6, 1, '2019-08-23 06:12:57', '2019-08-23 06:12:57', 500, 500),
-(16, 6, 3, 1, '2019-08-23 06:17:07', '2019-08-23 06:17:07', 480, 480),
-(17, 6, 4, 1, '2019-08-23 06:17:07', '2019-08-23 06:17:07', 1500, 1500),
-(18, 6, 6, 1, '2019-08-23 06:17:07', '2019-08-23 06:17:07', 500, 500),
-(19, 6, 3, 1, '2019-08-23 06:17:07', '2019-08-23 06:17:07', 480, 480),
-(20, 7, 4, 1, '2019-08-23 06:26:06', '2019-08-23 06:26:06', 1500, 1500),
-(21, 7, 5, 1, '2019-08-23 06:26:06', '2019-08-23 06:26:06', 100, 100),
-(22, 7, 3, 1, '2019-08-23 06:26:06', '2019-08-23 06:26:06', 480, 480),
-(23, 8, 4, 1, '2019-08-23 06:28:57', '2019-08-23 06:28:57', 1500, 1500),
-(24, 8, 5, 1, '2019-08-23 06:28:57', '2019-08-23 06:28:57', 100, 100),
-(25, 8, 2, 1, '2019-08-23 06:28:57', '2019-08-23 06:28:57', 1000, 1000);
 
 -- --------------------------------------------------------
 
@@ -497,9 +459,9 @@ CREATE TABLE `mohsindev_admin_products` (
 
 INSERT INTO `mohsindev_admin_products` (`id`, `category_id`, `serial_no`, `barcode`, `name`, `company`, `retail_price`, `sale_price`, `discount`, `manufacturing_date`, `expiry_date`, `stock`) VALUES
 (2, 5, 0, 0, 'Naphthylamine', 'Roche', '1000', '950', '50', '2019-08-14', '2021-06-17', 485),
-(3, 8, 0, 0, 'Chloroadenosine', 'Mediconn', '480', '0', '0', '2019-06-13', '2021-10-08', 5),
+(3, 8, 0, 0, 'Chloroadenosine', 'Mediconn', '480', '0', '0', '2019-06-13', '2021-10-08', 4),
 (4, 7, 0, 0, 'Product name', 'Pharma', '1500', '800', '0', '0000-00-00', '2019-08-15', 50),
-(5, 7, 0, 0, 'sdas', 'Sewing', '100', '50', '50', '0000-00-00', '2019-08-22', 60),
+(5, 7, 0, 0, 'sdas', 'Sewing', '100', '50', '50', '0000-00-00', '2019-08-22', 59),
 (6, 6, 0, 35, 'dsfdlspfko', 'fwefwef', '500', '80', '420', '0000-00-00', '2019-08-16', 70),
 (7, 8, 0, 0, 'fokfpekpkfwp', 'kmsdfemofmw', '8000', '50', '7950', '0000-00-00', '2019-08-15', 80);
 
@@ -1053,7 +1015,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `activation_code`, `persist_code`, `reset_password_code`, `permissions`, `is_activated`, `activated_at`, `last_login`, `created_at`, `updated_at`, `username`, `surname`, `deleted_at`, `last_seen`, `is_guest`, `is_superuser`) VALUES
-(4, 'Chemist Store', 'chemist@store.com', '$2y$10$.v8Kgu2Zc7/4Soq3iFTwz.mD8S1z34UBElTY42mP1kEU0WS1TnP8S', NULL, '$2y$10$QnfkFmRg3n1Ms8/xo8apgu1E/IesvPTwqL0FgQLC3VoV.jMS2H6gO', NULL, NULL, 1, '2019-08-23 03:16:01', '2019-08-23 03:16:30', '2019-08-23 03:16:01', '2019-08-23 03:16:30', 'chemist@store.com', NULL, NULL, '2019-08-23 06:25:51', 0, 0);
+(4, 'Chemist Store', 'chemist@store.com', '$2y$10$.v8Kgu2Zc7/4Soq3iFTwz.mD8S1z34UBElTY42mP1kEU0WS1TnP8S', NULL, '$2y$10$QnfkFmRg3n1Ms8/xo8apgu1E/IesvPTwqL0FgQLC3VoV.jMS2H6gO', NULL, NULL, 1, '2019-08-23 03:16:01', '2019-08-23 03:16:30', '2019-08-23 03:16:01', '2019-08-23 03:16:30', 'chemist@store.com', NULL, NULL, '2019-08-25 13:42:07', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1480,12 +1442,12 @@ ALTER TABLE `mohsindev_admin_expenses`
 -- AUTO_INCREMENT for table `mohsindev_admin_orders`
 --
 ALTER TABLE `mohsindev_admin_orders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `mohsindev_admin_order_products`
 --
 ALTER TABLE `mohsindev_admin_order_products`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `mohsindev_admin_products`
 --
