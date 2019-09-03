@@ -65,7 +65,8 @@ function onStart(){
                                 <th>Category</th>
                                 <th>Retail Price</th>
                                 <th>Sale Price</th>
-                                <th>Add</th>
+                                <th>Rack</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <!-- <tfoot>
@@ -90,6 +91,7 @@ function onStart(){
                                 {% endfor %}
                                 <td>Rs. {{product.retail_price}}</td>
                                 <td>Rs. {{product.sale_price}}</td>
+                                <td>{{product.rack}}</td>
                                 <td>
                                     <a href="#" data-toggle="tooltip" data-original-title="Add to List" >
                                     <i class="fa fa-plus text-inverse m-r-10"></i> </a>
