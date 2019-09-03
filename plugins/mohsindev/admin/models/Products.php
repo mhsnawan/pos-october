@@ -27,5 +27,5 @@ class Products extends Model
     public $rules = [
     ];
 
-    protected $fillable = ['category_id', 'serial_no', 'barcode', 'name', 'company', 'retail_price', 'sale_price', 'discount', 'stock', 'manufacturing_date', 'expiry_date'];
+    protected $fillable = ['category_id', 'serial_no', 'barcode', 'name', 'company', 'retail_price', 'sale_price', 'discount', 'stock', 'rack', 'manufacturing_date', 'expiry_date'];
 }
