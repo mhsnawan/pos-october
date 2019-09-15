@@ -63,3 +63,6 @@
 1.0.22:
     - 'Created table mohsindev_admin_purchases'
     - builder_table_create_mohsindev_admin_purchases.php
+1.0.23:
+    - 'Updated table mohsindev_admin_products'
+    - builder_table_update_mohsindev_admin_products_7.php

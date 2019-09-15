@@ -4,6 +4,7 @@ use Cms\Classes\ComponentBase;
 use Mohsindev\Admin\Models\Orders as OrdersModel;
 use Mohsindev\Admin\Models\Expenses as ExpenseModel;
 use Mohsindev\Admin\Models\Products as ProductModel;
+use Mohsindev\Admin\Models\Purchases as PurchasesModel;
 use Carbon;
 use Flash;
 
@@ -63,6 +64,38 @@ class Sales extends ComponentBase
 
         // SALES
 
+        //PURCHASES
+        $total_today_purchase = 0;
+        $total_weekly_purchase = 0;
+        $total_monthly_purchase = 0;
+        $total_yearly_purchase = 0;
+        //$t_expense = ExpenseModel::whereDate('created_at', $today)->get();
+        $t_purchase = PurchasesModel::whereDate('created_at', $current)->get();
+        $w_purchase = PurchasesModel::whereBetween('created_at', [$start_week, $end_week])->get();
+        $m_purchase = PurchasesModel::whereBetween('created_at', [$start_month, $end_month])->get();
+        $y_purchase = PurchasesModel::whereBetween('created_at', [$start_year, $end_year])->get();
+        $this->page['purchase_today_count'] = count($t_purchase);
+        $this->page['purchase_weekly_count'] = count($w_purchase);
+        $this->page['purchase_monthly_count'] = count($m_purchase);
+        $this->page['purchase_yearly_count'] = count($y_purchase);
+
+        for($i=0; $i<count($t_purchase); $i++){
+            $this->page['total_today_purchase'] = $total_today_purchase + $w_purchase[$i]->price;
+        }
+
+        for($i=0; $i<count($w_purchase); $i++){
+            $this->page['total_weekly_purchase'] = $total_weekly_purchase = $total_weekly_purchase + $w_purchase[$i]->price;
+        }
+
+        for($i=0; $i<count($m_purchase); $i++){
+            $this->page['total_monthly_purchase'] = $total_monthly_purchase = $total_monthly_purchase + $m_purchase[$i]->price;
+        }
+
+        for($i=0; $i<count($y_purchase); $i++){
+            $this->page['total_yearly_purchase'] = $total_yearly_purchase = $total_yearly_purchase + $y_purchase[$i]->price;
+        }
+        //dd($t_purchase);
+
         // EXPENSE
         $total_today_expense = 0;
         $total_weekly_expense = 0;
@@ -79,19 +112,19 @@ class Sales extends ComponentBase
         $this->page['expense_yearly_count'] = count($y_expense);
 
         for($i=0; $i<count($t_expense); $i++){
-            $this->page['total_today_expense'] = $total_today_expense + $w_expense[$i]->price;
+            $this->page['total_today_expense'] = $total_today_expense = $total_today_expense + $w_expense[$i]->price;
         }
 
         for($i=0; $i<count($w_expense); $i++){
-            $this->page['total_weekly_expense'] = $total_weekly_expense + $w_expense[$i]->price;
+            $this->page['total_weekly_expense'] = $total_weekly_expense = $total_weekly_expense + $w_expense[$i]->price;
         }
 
         for($i=0; $i<count($m_expense); $i++){
-            $this->page['total_monthly_expense'] = $total_monthly_expense + $m_expense[$i]->price;
+            $this->page['total_monthly_expense'] = $total_monthly_expense = $total_monthly_expense + $m_expense[$i]->price;
         }
 
         for($i=0; $i<count($y_expense); $i++){
-            $this->page['total_yearly_expense'] = $total_yearly_expense + $y_expense[$i]->price;
+            $this->page['total_yearly_expense'] = $total_yearly_expense = $total_yearly_expense + $y_expense[$i]->price;
         }
 
     }

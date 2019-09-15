@@ -94,6 +94,60 @@ function onStart(){
 </div>
 <!-- /row -->
 
+<div class="row">
+    <div class="col-lg-3 col-md-6    col-sm-6 col-xs-12">
+        <div class="white-box bg-danger">
+            <h3 class="box-title text-white">Daily Profit</h3>
+            <h3 class="text-white"><sup></sup> PKR. {{ total_today_expense }}</h3>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6    col-sm-6 col-xs-12">
+        <div class="white-box bg-info">
+            <h3 class="box-title text-white">Weekly Profit</h3>
+            <h3 class="text-white"><sup></sup> PKR. {{ total_today_expense }}</h3>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6    col-sm-6 col-xs-12">
+        <div class="white-box bg-purple">
+            <h3 class="box-title text-white">Monthly Profit</h3>
+            <h3 class="text-white"><sup></sup> PKR. {{ total_today_expense }}</h3>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6    col-sm-6 col-xs-12">
+        <div class="white-box bg-inverse">
+            <h3 class="box-title text-white">Yearly Profit</h3>
+            <h3 class="text-white"><sup></sup> PKR. {{ total_today_expense }}</h3>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 col-md-6    col-sm-6 col-xs-12">
+        <div class="white-box bg-danger">
+            <h3 class="box-title text-white">Daily Purchase</h3>
+            <h3 class="text-white"><sup></sup> PKR. {{ total_today_purchase }}</h3>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6    col-sm-6 col-xs-12">
+        <div class="white-box bg-info">
+            <h3 class="box-title text-white">Weekly Purchase</h3>
+            <h3 class="text-white"><sup></sup> PKR. {{ total_weekly_purchase }}</h3>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6    col-sm-6 col-xs-12">
+        <div class="white-box bg-purple">
+            <h3 class="box-title text-white">Monthly Purchase</h3>
+            <h3 class="text-white"><sup></sup> PKR. {{ total_monthly_purchase }}</h3>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6    col-sm-6 col-xs-12">
+        <div class="white-box bg-inverse">
+            <h3 class="box-title text-white">Yearly Purchase</h3>
+            <h3 class="text-white"><sup></sup> PKR. {{ total_yearly_purchase }}</h3>
+        </div>
+    </div>
+</div>
+
 
 
 <!-- ============================================================== -->
@@ -101,32 +155,28 @@ function onStart(){
 <!-- ============================================================== -->
 <!-- .row -->
 <div class="row">
-    <div class="col-lg-3 col-md-6    col-sm-6 col-xs-12">
-        <div class="white-box">
-            <h3 class="box-title">Daily Expense</h3>
-            <div class="text-right"> <span class="text-muted">Daily Expense</span>
-                <h3><sup></sup> PKR. {{ total_today_expense }}</h3> </div>
+    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div class="white-box bg-danger">
+            <h3 class="box-title text-white">Daily Expense</h3>
+            <h3 class="text-white"><sup></sup> PKR. {{ total_today_expense }}</h3>
         </div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-        <div class="white-box">
-            <h3 class="box-title">Weekly Expense</h3>
-            <div class="text-right"> <span class="text-muted">Weekly Expense</span>
-                <h3><sup></sup> PKR. {{total_weekly_expense}}</h3> </div>
+        <div class="white-box bg-info">
+            <h3 class="box-title text-white">Weekly Expense</h3>
+            <h3 class="text-white"><sup></sup> PKR. {{total_weekly_expense}}</h3>
         </div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-        <div class="white-box">
-            <h3 class="box-title">Monthly Expense</h3>
-            <div class="text-right"> <span class="text-muted">Monthly Expense</span>
-                <h3><sup></sup> PKR. {{total_monthly_expense}}</h3> </div>
+        <div class="white-box bg-purple">
+            <h3 class="box-title text-white">Monthly Expense</h3>
+            <h3 class="text-white"><sup></sup> PKR. {{total_monthly_expense}}</h3>
         </div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-        <div class="white-box">
-            <h3 class="box-title">Yearly Expense</h3>
-            <div class="text-right"> <span class="text-muted">Yearly Expense</span>
-                <h3><sup></sup> PKR. {{total_yearly_expense}}</h3> </div>
+        <div class="white-box bg-inverse">
+            <h3 class="box-title text-white">Yearly Expense</h3>
+            <h3 class="text-white"><sup></sup> PKR. {{total_yearly_expense}}</h3>
         </div>
     </div>
 </div>
