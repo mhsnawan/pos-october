@@ -34,7 +34,7 @@ class Products extends ComponentBase
     public function onCreate() {
         $input = post();
         //dd($input);
-        $input['discount'] = $input['retail_price'] - $input['sale_price'];
+        $input['profit'] = $input['purchase_price'] - $input['sale_price'];
         ProductsModel::create($input);
         Flash::success('Product has been saved');
     }

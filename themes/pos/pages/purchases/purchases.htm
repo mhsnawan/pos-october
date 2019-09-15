@@ -1,7 +1,7 @@
-url = "categories"
+url = "purchases"
 layout = "admin"
-title = "Categories"
-[Categories]
+title = "Purchases"
+[Purchases]
 [account]
 [session]
 ==
@@ -28,7 +28,7 @@ function onStart(){
 <div class="row">
     <div class="col-sm-8">
         <div class="white-box">
-            <h3 class="box-title m-b-0">Categories</h3>
+            <h3 class="box-title m-b-0">Purchases</h3>
             <!-- <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p> -->
             <div class="table-responsive">
                 <table id="example23" class="display nowrap table table-striped color-table info-table" cellspacing="0" width="100%">
@@ -36,18 +36,20 @@ function onStart(){
                         <tr>
                             <th>S #</th>
                             <th>Name</th>
+                            <th>Price</th>
                             <th>Action</th>
                     </thead>
                     <tbody>
-                        {% for category in categories %}
+                        {% for purchase in purchases %}
                         <tr>
                             <td>{{ loop.index }}</td>
-                            <td>{{category.name}}</td>
+                            <td>{{purchase.name}}</td>
+                            <td>{{purchase.price}}</td>
                             <td class="text-nowrap">
-                                <a href="#" onClick = "openmodal({{category.id}},'{{category.name}}')" data-original-title="Edit" > <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                <a href="#" data-toggle="tooltip" data-original-title="Delete" data-request="onDeleteCategory"
-                                data-request-flash data-request-redirect="/categories"
-                                data-request-data="id:'{{category.id}}'"> <i class="fa fa-close text-danger"></i> </a>
+                                <a href="#" onClick = "openmodal({{purchase.id}},'{{purchase.name}}', {{purchase.price}}, '{{purchase.description}}')" data-original-title="Edit" > <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                <a href="#" data-toggle="tooltip" data-original-title="Delete" data-request="onDelete"
+                                data-request-flash data-request-redirect="/purchases"
+                                data-request-data="id:'{{purchase.id}}'"> <i class="fa fa-close text-danger"></i> </a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -58,16 +60,30 @@ function onStart(){
     </div>
     <div class="col-sm-4">
         <div class="white-box">
-            <h3 class="box-title m-b-0">Add Categories</h3>
+            <h3 class="box-title m-b-0">Add Purchase</h3>
             <p class="text-muted m-b-30 font-13">  </p>
-            <form class="form-horizontal" data-request="onCreate" data-request-redirect="/categories" data-request-files data-request-flash method="POST">
-
+            <form class="form-horizontal" data-request="onCreate" data-request-redirect="/purchases" data-request-files data-request-flash method="POST">
+           
                 <div class="form-group">
                     <label class="col-md-12">Name</label>
                     <div class="col-md-12">
-                        <input type="text" class="form-control" name="name" placeholder="Add Category Name" required>
+                        <input type="text" class="form-control" name="name" placeholder="Purchase Name" required>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label class="col-md-12">Price</label>
+                    <div class="col-md-12">
+                        <input type="number" class="form-control" name="price" value="" placeholder="Price" step=".01" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12">Description</label>
+                    <div class="col-md-12">
+                        <textarea class="form-control form-control-line" rows="5" name="description"></textarea>
+                    </div>
+                </div>
+                
                 <div class="fileupload btn btn-danger btn-rounded waves-effect waves-light"><span><i class="ion-upload m-r-5"></i>Add</span>
                     <input type="submit" class="upload">
                 </div>
@@ -83,14 +99,23 @@ function onStart(){
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="editcategory">Edit Category</h4>
+                        <h4 class="modal-title" id="editpurchase">Edit Purchase</h4>
                     </div>
                     <div class="modal-body">
-                        <form data-request="onEditCategory" data-request-redirect="/categories" data-request-files data-request-flash method="POST">
+                        <form data-request="onUpdate" data-request-redirect="/purchases" data-request-files data-request-flash method="POST">
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Name:</label>
                                 <input type="hidden" id="id" name="id">
                                 <input type="text" id="name" name="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">Price:</label>
+                                <input type="number" id="price" name="price" class="form-control" step=".01" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">Description:</label>
+                                <textarea class="form-control form-control-line" rows="5" id="description" name="description"></textarea>
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary">
@@ -104,9 +129,11 @@ function onStart(){
         </div>
         <!-- /.modal -->
         <script type="text/javascript">
-            function openmodal(id, name) {
-                document.getElementById('name').value = name;
+            function openmodal(id, name, price, description) {
                 document.getElementById('id').value = id;
+                document.getElementById('name').value = name;
+                document.getElementById('price').value = price;
+                document.getElementById('description').value = description;
                 $('.bs-example-modal-sm').modal();
             }
         </script>

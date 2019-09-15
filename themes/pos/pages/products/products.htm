@@ -24,6 +24,7 @@ function onStart(){
 ?>
 ==
 
+<br>
 <div class="row">
     <div class="col-sm-12">
         <div class="white-box">
@@ -46,9 +47,9 @@ function onStart(){
                             <th>Category</th>
                             <th>Barcode</th>
                             <th>Company</th>
-                            <th>Retail Price</th>
+                            <th>Purchase Price</th>
                             <th>Sale Price</th>
-                            <th>Discount</th>
+                            <th>Profit</th>
                             <th>Stock</th>
                             <th>Rack</th>
                             <th>Manufacture Date</th>
@@ -63,9 +64,9 @@ function onStart(){
                             <th>Category</th>
                             <th>Barcode</th>
                             <th>Company</th>
-                            <th>Retail Price</th>
+                            <th>Purchase Price</th>
                             <th>Sale Price</th>
-                            <th>Discount</th>
+                            <th>Profit</th>
                             <th>Stock</th>
                             <th>Rack</th>
                             <th>Manufacture Date</th>
@@ -85,9 +86,9 @@ function onStart(){
                             {% endfor %}
                             <td>{{product.barcode}}</td>
                             <td>{{product.company}}</td>
-                            <td>Rs. {{product.retail_price}}</td>
+                            <td>Rs. {{product.purchase_price}}</td>
                             <td>Rs. {{product.sale_price}}</td>
-                            <td>Rs. {{product.discount}}</td>
+                            <td>Rs. {{product.profit}}</td>
                             <td>{{product.stock}}</td>
                             <td>{{product.rack}}</td>
                             <td>{{product.manufacturing_date}}</td>

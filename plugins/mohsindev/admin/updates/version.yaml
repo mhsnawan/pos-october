@@ -54,3 +54,12 @@
 1.0.19:
     - 'Updated table mohsindev_admin_expenses'
     - builder_table_update_mohsindev_admin_expenses_2.php
+1.0.20:
+    - 'Updated table mohsindev_admin_products'
+    - builder_table_update_mohsindev_admin_products_5.php
+1.0.21:
+    - 'Updated table mohsindev_admin_products'
+    - builder_table_update_mohsindev_admin_products_6.php
+1.0.22:
+    - 'Created table mohsindev_admin_purchases'
+    - builder_table_create_mohsindev_admin_purchases.php

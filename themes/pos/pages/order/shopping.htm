@@ -63,8 +63,7 @@ function onStart(){
                                 <th>S #</th>
                                 <th>Name</th>
                                 <th>Category</th>
-                                <th>Retail Price</th>
-                                <th>Sale Price</th>
+                                <th>Price</th>
                                 <th>Rack</th>
                                 <th></th>
                             </tr>
@@ -89,7 +88,6 @@ function onStart(){
                                 <td>{{category.name}}</td>
                                 {% endif %}
                                 {% endfor %}
-                                <td>Rs. {{product.retail_price}}</td>
                                 <td>Rs. {{product.sale_price}}</td>
                                 <td>{{product.rack}}</td>
                                 <td>

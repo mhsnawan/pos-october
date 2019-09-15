@@ -13,7 +13,8 @@ class Plugin extends PluginBase
             'Mohsindev\Admin\Components\Orders' => 'Orders',
             'Mohsindev\Admin\Components\OrderProducts' => 'OrderProducts',
             'Mohsindev\Admin\Components\Sales' => 'Sales',
-            'Mohsindev\Admin\Components\Subscription' => 'Subscription'
+            'Mohsindev\Admin\Components\Subscription' => 'Subscription',
+            'Mohsindev\Admin\Components\Purchases' => 'Purchases'
 
         ];
     }
