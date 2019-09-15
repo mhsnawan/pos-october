@@ -77,14 +77,14 @@ function onStart(){
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Retail Price</label>
-                                        <input type="number" name="retail_price" class="form-control" placeholder="1000" value="{{ edit_product.retail_price }}" required>
+                                        <input type="number" name="retail_price" class="form-control" placeholder="1000" value="{{ edit_product.retail_price }}" step=".01" required>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Sale Price</label>
-                                        <input type="number" name="sale_price" class="form-control" placeholder="80" value="{{ edit_product.sale_price }}">
+                                        <input type="number" name="sale_price" class="form-control" placeholder="80" value="{{ edit_product.sale_price }}" step=".01" required>
                                     </div>
                                 </div>
 

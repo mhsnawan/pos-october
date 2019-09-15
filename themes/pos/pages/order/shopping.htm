@@ -218,7 +218,7 @@ function onStart(){
         // var rowTable = $("#order").dataTable();
         count++;
         product_price = product.retail_price-product.discount;
-        console.log('Product Price is ' + product_price);
+        //console.log('Product Price is ' + product_price);
         $('#add-order').append(`
             <tr id=${count}>
                 <td>${product.name}</td>
@@ -257,7 +257,7 @@ function onStart(){
     function calTotal(id) {
         var table = document.getElementById('order');
         subTotal = 0;
-        console.log(table.rows.length);
+        //console.log(table.rows.length);
         for(var i=1; i<(table.rows.length); i++){
             var quan = "quantity"+(ids[i-1]);
             var pri = "price"+(ids[i-1]);
@@ -266,14 +266,14 @@ function onStart(){
             subTotal = subTotal + (price*quantity);
         }
         sub = document.getElementById('sub-total').innerHTML = subTotal;
-        console.log(subTotal);
+        //console.log(subTotal);
     }
 
     function onCheckout(){
         var discount_price = document.getElementById('discount-price').value;
         collectableCash = subTotal - discount_price;
         document.getElementById('collectable').value = collectableCash;
-        console.log('Discount price is '+ JSON.stringify(discount_price));
+        //console.log('Discount price is '+ JSON.stringify(discount_price));
 
         document.getElementById('product_ids').value = JSON.stringify(product_ids);
         document.getElementById('quantities').value = JSON.stringify(quantities);
@@ -289,12 +289,17 @@ function onStart(){
         $('#invoice-collectable').html(collectableCash)
 
         var mode = 'iframe'; //popup
-            var close = mode == "popup";
-            var options = {
-                mode: mode,
-                popClose: close
+        var close = mode == "popup";
+        var options = {
+            mode: mode,
+            popClose: close,
+            autoPrint: true
         };
         $("div.printableArea").printArea(options);
+    }
+
+    function hello(){
+        alert('heloo');
     }
 
     function onCash(){

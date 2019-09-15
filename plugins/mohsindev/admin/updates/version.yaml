@@ -45,3 +45,12 @@
 1.0.16:
     - 'Updated table mohsindev_admin_products'
     - builder_table_update_mohsindev_admin_products_3.php
+1.0.17:
+    - 'Updated table mohsindev_admin_products'
+    - builder_table_update_mohsindev_admin_products_4.php
+1.0.18:
+    - 'Updated table mohsindev_admin_orders'
+    - builder_table_update_mohsindev_admin_orders_4.php
+1.0.19:
+    - 'Updated table mohsindev_admin_expenses'
+    - builder_table_update_mohsindev_admin_expenses_2.php
