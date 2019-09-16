@@ -37,6 +37,10 @@ class Sales extends ComponentBase
         $total_weekly_sales = 0;
         $total_monthly_sales = 0;
         $total_yearly_sales = 0;
+        $todayProfit = 0;
+        $weeklyProfit = 0;
+        $monthlyProfit = 0;
+        $yearlyProfit = 0;
         $this->page['today'] = $today = OrdersModel::whereDate('created_at', $current)->get();
         $this->page['weekly'] = $weekly = OrdersModel::whereBetween('created_at', [$start_week, $end_week])->get();
         $this->page['monthly'] = $monthly = OrdersModel::whereBetween('created_at', [$start_month, $end_month])->get();
@@ -48,21 +52,26 @@ class Sales extends ComponentBase
 
         for($i=0; $i<count($today); $i++){
             $this->page['total_today_sales'] = $total_yearly_sales + $today[$i]->price;
+            $this->page['today_profit'] = $todayProfit = $todayProfit + $today[$i]->profit;
         }
 
         for($i=0; $i<count($weekly); $i++){
             $this->page['total_weekly_sales'] = $total_weekly_sales + $weekly[$i]->price;
+            $this->page['weekly_profit'] = $weeklyProfit = $weeklyProfit + $weekly[$i]->profit;
         }
 
         for($i=0; $i<count($monthly); $i++){
             $this->page['total_monthly_sales'] = $total_monthly_sales + $monthly[$i]->price;
+            $this->page['monthly_profit'] = $monthlyProfit = $monthlyProfit + $monthly[$i]->profit;
         }
 
         for($i=0; $i<count($yearly); $i++){
-            $this->page['total_yearly_sales'] = $total_yearly_sales + $monthly[$i]->price;
+            $this->page['total_yearly_sales'] = $total_yearly_sales + $yearly[$i]->price;
+            $this->page['yearly_profit'] = $yearlyProfit = $yearlyProfit + $yearly[$i]->profit;
         }
 
         // SALES
+
 
         //PURCHASES
         $total_today_purchase = 0;

@@ -53,7 +53,8 @@ function onStart(){
                 <div class="p-l-20 p-r-20">
                     <div class="pull-left">
                         <div class="text-muted m-t-20">Earning</div>
-                        <h2>PKR. {{total_weekly_sales}}</h2> </div>
+                        <h2>PKR. {{total_weekly_sales}}</h2>
+                    </div>
                     <div data-label="60%" class="css-bar css-bar-60 css-bar-lg m-b-0  css-bar-info pull-right"></div>
                 </div>
             </div>
@@ -69,7 +70,8 @@ function onStart(){
                 <div class="p-l-20 p-r-20">
                     <div class="pull-left">
                         <div class="text-muted m-t-20">Earning</div>
-                        <h2>PKR. {{total_monthly_sales}}</h2> </div>
+                        <h2>PKR. {{total_monthly_sales}}</h2>
+                    </div>
                     <div data-label="60%" class="css-bar css-bar-60 css-bar-lg m-b-0 css-bar-purple pull-right"></div>
                 </div>
             </div>
@@ -85,7 +87,8 @@ function onStart(){
                 <div class="p-l-20 p-r-20">
                     <div class="pull-left">
                         <div class="text-muted m-t-20">Earning</div>
-                        <h2>PKR. {{total_yearly_sales}}</h2> </div>
+                        <h2>PKR. {{total_yearly_sales}}</h2>
+                    </div>
                     <div data-label="60%" class="css-bar css-bar-60 css-bar-lg m-b-0 css-bar-inverse pull-right"></div>
                 </div>
             </div>
@@ -98,25 +101,25 @@ function onStart(){
     <div class="col-lg-3 col-md-6    col-sm-6 col-xs-12">
         <div class="white-box bg-danger">
             <h3 class="box-title text-white">Daily Profit</h3>
-            <h3 class="text-white"><sup></sup> PKR. {{ total_today_expense }}</h3>
+            <h3 class="text-white"><sup></sup> PKR. {{ today_profit }}</h3>
         </div>
     </div>
     <div class="col-lg-3 col-md-6    col-sm-6 col-xs-12">
         <div class="white-box bg-info">
             <h3 class="box-title text-white">Weekly Profit</h3>
-            <h3 class="text-white"><sup></sup> PKR. {{ total_today_expense }}</h3>
+            <h3 class="text-white"><sup></sup> PKR. {{ weekly_profit }}</h3>
         </div>
     </div>
     <div class="col-lg-3 col-md-6    col-sm-6 col-xs-12">
         <div class="white-box bg-purple">
             <h3 class="box-title text-white">Monthly Profit</h3>
-            <h3 class="text-white"><sup></sup> PKR. {{ total_today_expense }}</h3>
+            <h3 class="text-white"><sup></sup> PKR. {{ monthly_profit }}</h3>
         </div>
     </div>
     <div class="col-lg-3 col-md-6    col-sm-6 col-xs-12">
         <div class="white-box bg-inverse">
             <h3 class="box-title text-white">Yearly Profit</h3>
-            <h3 class="text-white"><sup></sup> PKR. {{ total_today_expense }}</h3>
+            <h3 class="text-white"><sup></sup> PKR. {{ yearly_profit }}</h3>
         </div>
     </div>
 </div>
@@ -221,8 +224,9 @@ function onStart(){
                         <td>{{product.expiry_date}}</td>
                         <td class="text-nowrap">
                             <a href="#" data-toggle="tooltip" data-original-title="Edit" data-request="onEditProduct"
-                            data-request-flash data-request-data="id: '{{product.id}}'" data-request-redirect="/edit-product">
-                            <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                data-request-flash data-request-data="id: '{{product.id}}'"
+                                data-request-redirect="/edit-product">
+                                <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -296,44 +300,45 @@ function onStart(){
     </div>
 </div> -->
 
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="{{ 'assets/admin/plugins/bower_components/jquery/dist/jquery.min.js'|theme }}"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{{ 'assets/admin/bootstrap/dist/js/bootstrap.min.js'|theme }}"></script>
-    <!-- Menu Plugin JavaScript -->
-    <script src="{{ 'assets/admin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js'|theme }}"></script>
-    <!--slimscroll JavaScript -->
-    <!-- <script src="{{ 'assets/admin/js/jquery.slimscroll.js'|theme }}"></script> -->
-    <!--Wave Effects -->
-    <script src="{{ 'assets/admin/js/waves.js'|theme }}"></script>
-    <!--Counter js -->
-    <script src="{{ 'assets/admin/plugins/bower_components/waypoints/lib/jquery.waypoints.js'|theme }}"></script>
-    <script src="{{ 'assets/admin/plugins/bower_components/counterup/jquery.counterup.min.js'|theme }}"></script>
-    <!--Morris JavaScript -->
-    <script src="{{ 'assets/admin/plugins/bower_components/raphael/raphael-min.js'|theme }}"></script>
-    <script src="{{ 'assets/admin/plugins/bower_components/morrisjs/morris.js'|theme }}"></script>
-    <!-- chartist chart -->
-    <script src="{{ 'assets/admin/plugins/bower_components/chartist-js/dist/chartist.min.js'|theme }}"></script>
-    <script src="{{ 'assets/admin/plugins/bower_components/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js'|theme }}"></script>
-    <!-- Calendar JavaScript -->
-    <script src="{{ 'assets/admin/plugins/bower_components/moment/moment.js'|theme }}"></script>
-    <script src="{{ 'assets/admin/plugins/bower_components/calendar/dist/fullcalendar.min.js'|theme }}"></script>
-    <script src="{{ 'assets/admin/plugins/bower_components/calendar/dist/cal-init.js'|theme }}"></script>
-    <!-- Custom Theme JavaScript -->
-    <script src="{{ 'assets/admin/js/custom.min.js'|theme }}"></script>
-    <script src="{{ 'assets/admin/js/dashboard1.js'|theme }}"></script>
-    <!-- Custom tab JavaScript -->
-    <script src="{{ 'assets/admin/js/cbpFWTabs.js'|theme }}"></script>
-    <script type="text/javascript">
-    (function() {
-        [].slice.call(document.querySelectorAll('.sttabs')).forEach(function(el) {
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="{{ 'assets/admin/plugins/bower_components/jquery/dist/jquery.min.js'|theme }}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{{ 'assets/admin/bootstrap/dist/js/bootstrap.min.js'|theme }}"></script>
+<!-- Menu Plugin JavaScript -->
+<script src="{{ 'assets/admin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js'|theme }}"></script>
+<!--slimscroll JavaScript -->
+<!-- <script src="{{ 'assets/admin/js/jquery.slimscroll.js'|theme }}"></script> -->
+<!--Wave Effects -->
+<script src="{{ 'assets/admin/js/waves.js'|theme }}"></script>
+<!--Counter js -->
+<script src="{{ 'assets/admin/plugins/bower_components/waypoints/lib/jquery.waypoints.js'|theme }}"></script>
+<script src="{{ 'assets/admin/plugins/bower_components/counterup/jquery.counterup.min.js'|theme }}"></script>
+<!--Morris JavaScript -->
+<script src="{{ 'assets/admin/plugins/bower_components/raphael/raphael-min.js'|theme }}"></script>
+<script src="{{ 'assets/admin/plugins/bower_components/morrisjs/morris.js'|theme }}"></script>
+<!-- chartist chart -->
+<script src="{{ 'assets/admin/plugins/bower_components/chartist-js/dist/chartist.min.js'|theme }}"></script>
+<script
+    src="{{ 'assets/admin/plugins/bower_components/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js'|theme }}"></script>
+<!-- Calendar JavaScript -->
+<script src="{{ 'assets/admin/plugins/bower_components/moment/moment.js'|theme }}"></script>
+<script src="{{ 'assets/admin/plugins/bower_components/calendar/dist/fullcalendar.min.js'|theme }}"></script>
+<script src="{{ 'assets/admin/plugins/bower_components/calendar/dist/cal-init.js'|theme }}"></script>
+<!-- Custom Theme JavaScript -->
+<script src="{{ 'assets/admin/js/custom.min.js'|theme }}"></script>
+<script src="{{ 'assets/admin/js/dashboard1.js'|theme }}"></script>
+<!-- Custom tab JavaScript -->
+<script src="{{ 'assets/admin/js/cbpFWTabs.js'|theme }}"></script>
+<script type="text/javascript">
+    (function () {
+        [].slice.call(document.querySelectorAll('.sttabs')).forEach(function (el) {
             new CBPFWTabs(el);
         });
     })();
-    </script>
-    <script src="{{ 'assets/admin/plugins/bower_components/toast-master/js/jquery.toast.js'|theme }}"></script>
-    <!--Style Switcher -->
-    <script src="{{ 'assets/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js'|theme }}"></script>
+</script>
+<script src="{{ 'assets/admin/plugins/bower_components/toast-master/js/jquery.toast.js'|theme }}"></script>
+<!--Style Switcher -->
+<script src="{{ 'assets/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js'|theme }}"></script>
 <!-- /.right-sidebar -->
