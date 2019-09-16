@@ -66,3 +66,6 @@
 1.0.23:
     - 'Updated table mohsindev_admin_products'
     - builder_table_update_mohsindev_admin_products_7.php
+1.0.24:
+    - 'Updated table mohsindev_admin_orders'
+    - builder_table_update_mohsindev_admin_orders_5.php

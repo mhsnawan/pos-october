@@ -56,6 +56,8 @@ class Products extends ComponentBase
         $id = post('id');
         $check = ProductsModel::find($id);
         if($check) {
+            //dd($check);
+            $input['profit'] = $input['sale_price'] - $input['purchase_price'];
             $check->update($input);
             Flash::success('Product has been updated');
         }
