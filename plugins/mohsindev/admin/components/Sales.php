@@ -24,7 +24,6 @@ class Sales extends ComponentBase
     }
 
     public function onRun (){
-        $this->page['lowStockProducts'] = ProductModel::where('stock', '<', 10)->get();
         //$today = \Carbon\Carbon::now();
         $start_week = \Carbon\Carbon::now()->startOfWeek();
         $end_week = \Carbon\Carbon::now()->endOfWeek();
@@ -33,7 +32,8 @@ class Sales extends ComponentBase
         $start_year = \Carbon\Carbon::now()->startOfYear();
         $end_year = \Carbon\Carbon::now()->endOfYear();
         $current =  \Carbon\Carbon::now()->toDateString();
-        // SALES
+        // SALES AND PROFIT
+        $total_today_sales = 0;
         $total_weekly_sales = 0;
         $total_monthly_sales = 0;
         $total_yearly_sales = 0;
@@ -51,22 +51,22 @@ class Sales extends ComponentBase
         $this->page['yearly_count'] = count($yearly);
 
         for($i=0; $i<count($today); $i++){
-            $this->page['total_today_sales'] = $total_yearly_sales + $today[$i]->price;
+            $this->page['total_today_sales'] = $total_today_sales = $total_today_sales + $today[$i]->price;
             $this->page['today_profit'] = $todayProfit = $todayProfit + $today[$i]->profit;
         }
 
         for($i=0; $i<count($weekly); $i++){
-            $this->page['total_weekly_sales'] = $total_weekly_sales + $weekly[$i]->price;
+            $this->page['total_weekly_sales'] = $total_weekly_sales = $total_weekly_sales + $weekly[$i]->price;
             $this->page['weekly_profit'] = $weeklyProfit = $weeklyProfit + $weekly[$i]->profit;
         }
 
         for($i=0; $i<count($monthly); $i++){
-            $this->page['total_monthly_sales'] = $total_monthly_sales + $monthly[$i]->price;
+            $this->page['total_monthly_sales'] = $total_monthly_sales = $total_monthly_sales + $monthly[$i]->price;
             $this->page['monthly_profit'] = $monthlyProfit = $monthlyProfit + $monthly[$i]->profit;
         }
 
         for($i=0; $i<count($yearly); $i++){
-            $this->page['total_yearly_sales'] = $total_yearly_sales + $yearly[$i]->price;
+            $this->page['total_yearly_sales'] = $total_yearly_sales = $total_yearly_sales + $yearly[$i]->price;
             $this->page['yearly_profit'] = $yearlyProfit = $yearlyProfit + $yearly[$i]->profit;
         }
 
@@ -138,7 +138,4 @@ class Sales extends ComponentBase
 
     }
 
-    public function onSevenDays(){
-        // Carbon::now();
-    }
 }

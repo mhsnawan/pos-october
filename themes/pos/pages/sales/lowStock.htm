@@ -1,0 +1,89 @@
+url = "low-stocks"
+layout = "admin"
+[Products]
+[Subscription]
+[account]
+[session]
+==
+<?php
+function onStart(){
+    $user = Auth::getUser();
+    $subs =  \Mohsindev\Admin\Models\Subscription::find(1);
+    $check = Hash::check('PqPVoRXEIV6pGjzEaMle', $subs->key);
+    $date_check = (\Carbon\Carbon::parse($subs->expiry_date)->gt(\Carbon\Carbon::now()));
+    if($check && $date_check){
+        if(!$user)
+        {
+            return redirect('/login');
+        }
+    }
+    else {
+        return redirect('/expire');
+    }
+}
+?>
+==
+
+<br>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="row">
+                <div class="col-sm-10">
+                    <h3 class="box-title m-b-0">Low Stock Products</h3>
+                </div>
+                <div class="col-sm-2">
+                    <!-- <label>Category</label> -->
+                    <form id="filterSubmit" data-request="onFilterLowStock"
+                        data-request-update="'admin/lowStock': '#lowStock'" method="POST">
+                        <select class="form-control" id="filter" name="filter" required onchange="changeFilter()">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                        <input type="submit" id="submit">
+                    </form>
+                    <!-- <a href="/add-products"><button class="btn btn-info">Add Products</button></a> -->
+                </div>
+            </div>
+
+            <!-- <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p> -->
+            <div id="lowStock">
+                {% partial "admin/lowStock" %}
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- /#wrapper -->
+<!-- jQuery -->
+<script src="{{ 'assets/admin/plugins/bower_components/jquery/dist/jquery.min.js'|theme }}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{{ 'assets/admin/bootstrap/dist/js/bootstrap.min.js'|theme }}"></script>
+<!-- Menu Plugin JavaScript -->
+<script src="{{ 'assets/admin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js'|theme }}"></script>
+<!--slimscroll JavaScript -->
+<script src="{{ 'assets/admin/js/jquery.slimscroll.js'|theme }}"></script>
+<!--Wave Effects -->
+<script src="{{ 'assets/admin/js/waves.js'|theme }}"></script>
+<!-- Custom Theme JavaScript -->
+<script src="{{ 'assets/admin/js/custom.min.js'|theme }}"></script>
+<script src="{{ 'assets/admin/plugins/bower_components/datatables/jquery.dataTables.min.js'|theme }}"></script>
+<!-- start - This is for export functionality only -->
+<script src="{{ 'assets/admin/data-table/dataTables.buttons.min.js'|theme }}"></script>
+<script src="{{ 'assets/admin/data-table/buttons.flash.min.js'|theme }}"></script>
+<script src="{{ 'assets/admin/data-table/jszip.min.js'|theme }}"></script>
+<script src="{{ 'assets/admin/data-table/pdfmake.min.js'|theme }}"></script>
+<script src="{{ 'assets/admin/data-table/vfs_fonts.js'|theme }}"></script>
+<script src="{{ 'assets/admin/data-table/buttons.html5.min.js'|theme }}"></script>
+<script src="{{ 'assets/admin/data-table/buttons.print.min.js'|theme }}"></script>
+<!-- end - This is for export functionality only -->
+
+<!--Style Switcher -->
+<script src="{{ 'assets/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js'|theme }}"></script>

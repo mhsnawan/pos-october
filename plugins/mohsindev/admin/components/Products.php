@@ -23,6 +23,7 @@ class Products extends ComponentBase
     }
 
     public function onRun() {
+        $this->page['lowStockProducts'] = ProductsModel::where('stock', '<', 10)->get();
         $products = ProductsModel::all();
         $this->page['products'] = $products;
         $this->page['categories'] = $category = CategoryModel::all();
@@ -67,5 +68,11 @@ class Products extends ComponentBase
         $id = post('id');
         $gethospital = ProductsModel::where('id',$id)->delete();
         Flash::success('Product deleted successfuly');
+    }
+
+    public function onFilterLowStock() {
+        //dd(post('filter'));
+        $this->page['categories'] = $category = CategoryModel::all();
+        $this->page['lowStockProducts'] = ProductsModel::where('stock', '<=', post('filter'))->get();
     }
 }

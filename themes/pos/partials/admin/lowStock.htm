@@ -1,0 +1,89 @@
+<div class="table-responsive">
+    <table id="example23" class="display nowrap table color-table info-table table-striped" cellspacing="0"
+        width="100%">
+        <thead>
+            <tr>
+                <th>S #</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Barcode</th>
+                <th>Company</th>
+                <th>Purchasing</th>
+                <th>Selling</th>
+                <th>Profit</th>
+                <th>Stock</th>
+                <th>Rack</th>
+                <th>Mfr Date</th>
+                <th>Exp Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>S #</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Barcode</th>
+                <th>Company</th>
+                <th>Purchasing</th>
+                <th>Selling</th>
+                <th>Profit</th>
+                <th>Stock</th>
+                <th>Rack</th>
+                <th>Mfr Date</th>
+                <th>Exp Date</th>
+                <th>Actions</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            {% for product in lowStockProducts %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{product.name}}</td>
+                {% for category in categories%}
+                {% if category.id == product.category_id%}
+                <td>{{category.name}}</td>
+                {% endif %}
+                {% endfor %}
+                <td>{{product.barcode}}</td>
+                <td>{{product.company}}</td>
+                <td>Rs. {{product.purchase_price}}</td>
+                <td>Rs. {{product.sale_price}}</td>
+                <td>Rs. {{product.profit}}</td>
+                <td>{{product.stock}}</td>
+                <td>{{product.rack}}</td>
+                <td>{{product.manufacturing_date}}</td>
+                <td>{{product.expiry_date}}</td>
+                <td class="text-nowrap">
+                    <a href="#" data-toggle="tooltip" data-original-title="Edit" data-request="onEditProduct"
+                        data-request-flash data-request-data="id: '{{product.id}}'"
+                        data-request-redirect="/edit-product">
+                        <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                    <a href="#" data-toggle="tooltip" data-original-title="Delete" data-request="onDeleteProduct"
+                        data-request-flash data-request-redirect="/products" data-request-data="id:'{{product.id}}'"> <i
+                            class="fa fa-close text-danger"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+    $('#example23').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+    $('.dt-buttons').remove();
+    $('#example23_filter').remove();
+    function changeFilter() {
+        var value = $("#filter").val();
+        $('#submit').click();
+    }
+</script>
