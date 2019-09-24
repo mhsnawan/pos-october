@@ -311,14 +311,14 @@ function onStart(){
                 $('#invoice-discount').html(discount_price);
                 $('#invoice-collectable').html(collectableCash)
 
-                // var mode = 'iframe'; //popup
-                // var close = mode == "popup";
-                // var options = {
-                //     mode: mode,
-                //     popClose: close,
-                //     autoPrint: true
-                // };
-                // $("div.printableArea").printArea(options);
+                var mode = 'iframe'; //popup
+                var close = mode == "popup";
+                var options = {
+                    mode: mode,
+                    popClose: close,
+                    autoPrint: true
+                };
+                $("div.printableArea").printArea(options);
             }
 
             function hello() {
