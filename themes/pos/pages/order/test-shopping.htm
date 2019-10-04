@@ -1,4 +1,4 @@
-url = "/"
+url = "/test-shopping"
 title = 'pos'
 layout = "admin"
 [Products]
@@ -27,7 +27,15 @@ function onStart(){
 ==
 <div class="row">
     <div class="col-sm-12">
+        <!-- <div class="white-box"> -->
+        <!-- <div class="row">
+                <div class="col-sm-2">
+                    <h3 class="box-title m-b-0">Products</h3>
+                </div>
+            </div> -->
         <br>
+        <!-- <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p> -->
+
         <div class="col-md-6">
             <br><br>
             <div style="padding-bottom: 10px;"></div>
@@ -61,9 +69,19 @@ function onStart(){
                             <th></th>
                         </tr>
                     </thead>
+                    <!-- <tfoot>
+                            <tr>
+                                <th>S #</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Retail Price</th>
+                                <th>Sale Price</th>
+                                <th>Add</th>
+                            </tr>
+                        </tfoot> -->
                     <tbody>
                         {% for product in products %}
-                        <tr onclick="addToOrder({{product}})">
+                        <tr onclick="addOrder({{product}})">
                             <td>{{loop.index}}</td>
                             <td>{{product.name}}</td>
                             {% for category in categories%}
@@ -112,23 +130,19 @@ function onStart(){
                     </div>
                     <div class="col-sm-6 col-sm-2 b-t b-r">
                         <ul class="expense-box">
-                            <li>
-                                <i class="ti-hand-point-right text-info"></i><span>
+                            <li><i class="ti-hand-point-right text-info"></i><span>
                                     <h2><input type="number" id="cash" value="0" onchange="onCash()"
-                                        style="border: none;background: transparent;"></h2>
+                                            style="border: none;background: transparent;"></h2>
                                     <h4>Cash</h4>
-                                </span>
-                            </li>
+                                </span></li>
                         </ul>
                     </div>
                     <div class="col-sm-6 col-sm-2 b-t b-r">
                         <ul class="expense-box">
-                            <li>
-                                <i class="fa fa-money text-info"></i><span>
+                            <li><i class="fa fa-money text-info"></i><span>
                                     <h2 id="return-cash">Rs. 0</h2>
                                     <h4>Return</h4>
-                                </span>
-                            </li>
+                                </span></li>
                         </ul>
                     </div>
                     <div class="col-sm-6 col-sm-2 b-t b-r">
@@ -149,6 +163,11 @@ function onStart(){
                             </form>
                         </ul>
                     </div>
+                    <!-- <div class="col-sm-5 col-sm-3 b-t b-r">
+                            <ul class="expense-box">
+                                <li><i class="fa fa-money text-info"></i><span><h2 id="return-cash">Rs. 0</h2><h4>Change</h4></span></li>
+                            </ul>
+                        </div> -->
                 </div>
             </div>
         </div>
@@ -199,102 +218,106 @@ function onStart(){
         <!-- Custom Theme JavaScript -->
         <script src="{{ 'assets/admin/js/custom.min.js'|theme }}"></script>
         <script src="{{ 'assets/admin/plugins/bower_components/datatables/jquery.dataTables.min.js'|theme }}"></script>
-
+        <!-- start - This is for export functionality only -->
+        <!-- <script src="{{ 'assets/admin/data-table/dataTables.buttons.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/buttons.flash.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/jszip.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/pdfmake.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/vfs_fonts.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/buttons.html5.min.js'|theme }}"></script>
+    <script src="{{ 'assets/admin/data-table/buttons.print.min.js'|theme }}"></script> -->
+        <!-- end - This is for export functionality only -->
         <script>
-            let addedProducts = [];
-            let unitPrice = [];
-            let productQuantities = [];
-            let totalPrice = 0;
-            let collectableCash = 0;
+            let count = 0;
+            var ids = [];
+            var product_ids = [];
+            var quantities = [];
+            var unit_price = [];
+            var purchase_price = [];
+            var subTotal = 0;
+            var discount = 0;
+            var profit = 0;
+            var collectableCash = 0;
+            var table = document.getElementById('order');
+            function addOrder(product) {
 
+                if(product_ids.includes(product.id)){
+                    var quantity = document.getElementById(quan).value;
 
-            function addToOrder(product) {
-                if (addedProducts.includes(product.id)) {
-                    var quantity = document.getElementById("quantity"+product.id).value;
-                    document.getElementById("quantity"+product.id).value = parseInt(quantity) + 1;
-                    document.getElementById("unit"+product.id).value = (product.sale_price * (parseFloat(quantity) + 1)).toFixed(1);
-                    document.getElementById("price"+product.id).value = product.sale_price;
-                    var index = addedProducts.indexOf(product.id);
-                    productQuantities[index] = parseInt(quantity)+1;
-                    console.log(productQuantities);
                 }
                 else {
+                    count++;
                     $('#add-order').append(`
-                        <tr id=${product.id}>
+                        <tr id=${count}>
                             <td>${product.name}</td>
-                            <td><input type="number" id="quantity${product.id}" value="1" onChange="onChangeQuantity(${product.id}, '${product.sale_price}')" style="border: none;background: transparent; width:80px"></td>
-                            <td><input type="number" id="price${product.id}" value="${product.sale_price}" style="border: none;background: transparent; width:80px;" readonly></td>
-                            <td><input type="number" id="unit${product.id}" value="${product.sale_price}" style="border: none;background: transparent; width:80px;" readonly></td>
-                            <td><a href="#" onClick="onRemoveProduct(${product.id})" data-toggle="tooltip" data-original-title="Remove"><i class="fa fa-trash text-inverse m-r-10"></i> </a></td>
+                            <td><input type="number" id="quantity${count}" value="1" onChange="onQuantity(${count}, '${product.sale_price}')" style="border: none;background: transparent; width:80px"></td>
+                            <td><input type="number" id="price${count}" value="${product.sale_price}" style="border: none;background: transparent; width:80px;" readonly></td>
+                            <td><input type="number" id="unit${count}" value="${product.sale_price}" style="border: none;background: transparent; width:80px;" readonly></td>
+                            <td><a href="#" onClick="onRemove(${count})" data-toggle="tooltip" data-original-title="Remove"><i class="fa fa-trash text-inverse m-r-10"></i> </a></td>
                         </tr>
                     `);
-                    addedProducts.push(product.id);
-                    productQuantities.push(1);
-                    unitPrice.push(product.sale_price);
+                    ids.push(count);
+                    product_ids.push(product.id);
+                    quantities.push(1);
+                    unit_price.push(product.sale_price);
+                    purchase_price.push(product.purchase_price);
+                    calTotal(count);
                 }
-                calculateTotal();
             }
 
-            function onChangeQuantity(productId, salePrice) {
-                var quantity = document.getElementById("quantity"+productId).value;
-                document.getElementById("unit"+productId).value = salePrice * parseFloat(quantity);
-                document.getElementById("price"+productId).value = salePrice;
-                var index = addedProducts.indexOf(productId);
-                productQuantities[index] = parseInt(quantity);
-                console.log(productQuantities);
-                calculateTotal();
-            }
-
-            function onRemoveProduct(id) {
-                var removeId = '#' + id;
-                $(removeId).remove();
-                var index = addedProducts.indexOf(id);
-                if (index > -1) {
-                    addedProducts.splice(index, 1);
-                }
-                calculateTotal();
-            }
-
-            function calculateTotal() {
-                var table = document.getElementById('order');
-                totalPrice = 0;
-                for (var i = 1; i < (table.rows.length); i++) {
-                    var quantityId = "quantity" + (addedProducts[i - 1]);
-                    var priceId = "price" + (addedProducts[i - 1]);
-                    var quantity = document.getElementById(quantityId).value;
-                    var price = document.getElementById(priceId).value;
-                    totalPrice = totalPrice + (price * quantity);
-                }
-                document.getElementById('sub-total').innerHTML = totalPrice.toFixed(1);
+            function onQuantity(id, detail) {
+                var quan = "quantity" + id;
+                var price = "price" + id;
+                var unit = "unit" + id;
+                var quantity = document.getElementById(quan).value;
+                document.getElementById(unit).value = detail * quantity;
+                document.getElementById(price).innerHTML = detail * quantity;
+                var index = ids.indexOf(id);
+                quantities[index] = quantity;
+                console.log(quantities);
+                calTotal(id);
             }
 
             function onDiscount() {
-                var discountPrice = document.getElementById('discount-price').value;
-                collectableCash = totalPrice - discountPrice;
-                document.getElementById('collectable').value = collectableCash.toFixed(1);
+
+                var discount_price = document.getElementById('discount-price').value;
+                collectableCash = subTotal - discount_price;
+                document.getElementById('collectable').value = collectableCash;
             }
 
-            function onCash() {
-                var discountPrice = document.getElementById('discount-price').value;
-                collectableCash = totalPrice - discountPrice;
-                document.getElementById('collectable').value = collectableCash.toFixed(1);
-                document.getElementById('return-cash').innerHTML = (document.getElementById('cash').value - collectableCash).toFixed(1);
+            function calTotal(id) {
+                var table = document.getElementById('order');
+                subTotal = 0;
+                //console.log(table.rows.length);
+                for (var i = 1; i < (table.rows.length); i++) {
+                    var quan = "quantity" + (ids[i - 1]);
+                    var pri = "price" + (ids[i - 1]);
+                    var quantity = document.getElementById(quan).value;
+                    var price = document.getElementById(pri).value;
+                    subTotal = subTotal + (price * quantity);
+                }
+                sub = document.getElementById('sub-total').innerHTML = subTotal;
+                //console.log(subTotal);
             }
 
             function onCheckout() {
-                var discountPrice = document.getElementById('discount-price').value;
-                collectableCash = totalPrice - discountPrice;
+                console.log(quantities);
+                var discount_price = document.getElementById('discount-price').value;
+                collectableCash = subTotal - discount_price;
                 document.getElementById('collectable').value = collectableCash;
-                document.getElementById('product_ids').value = JSON.stringify(addedProducts);
-                document.getElementById('quantities').value = JSON.stringify(productQuantities);
+                //console.log('Discount price is '+ JSON.stringify(discount_price));
+
+                document.getElementById('product_ids').value = JSON.stringify(product_ids);
+                document.getElementById('quantities').value = JSON.stringify(quantities);
                 document.getElementById('total').value = collectableCash;
-                document.getElementById('total_price').value = JSON.stringify(totalPrice);
-                document.getElementById('discount').value = discountPrice;
-                document.getElementById('unit_prices').value = JSON.stringify(unitPrice);
+                document.getElementById('total_price').value = JSON.stringify(subTotal);
+                document.getElementById('discount').value = discount_price;
+                document.getElementById('unit_prices').value = JSON.stringify(unit_price);
+
                 var $invoice_detail = $('#order').clone();
                 $('#invoice-table').html($invoice_detail);
-                $('#invoice-sub-total').html(totalPrice);
-                $('#invoice-discount').html(discountPrice);
+                $('#invoice-sub-total').html(subTotal);
+                $('#invoice-discount').html(discount_price);
                 $('#invoice-collectable').html(collectableCash)
 
                 var mode = 'iframe'; //popup
@@ -307,6 +330,30 @@ function onStart(){
                 $("div.printableArea").printArea(options);
             }
 
+            function hello() {
+                alert('heloo');
+            }
+
+            function onCash() {
+                var discount_price = document.getElementById('discount-price').value;
+                collectableCash = subTotal - discount_price;
+                document.getElementById('collectable').value = collectableCash;
+                document.getElementById('return-cash').innerHTML = (document.getElementById('cash').value - collectableCash);
+            }
+
+            function onRemove(id) {
+                var remove = '#' + id;
+                $(remove).remove();
+                var index = ids.indexOf(id);
+                if (index > -1) {
+                    ids.splice(index, 1);
+                }
+                product_ids.splice(index, 1);
+                quantities.splice(index, 1);
+                unit_price.splice(index, 1);
+                calTotal();
+            }
+
             $(document).ready(function () {
                 $('#myTable').DataTable();
             });
@@ -317,6 +364,13 @@ function onStart(){
                 ],
                 "pageLength": 5
             });
+    // $('#order').DataTable({
+    //     dom: 'Bfrtip',
+    //     buttons: [
+    //         'copy', 'csv', 'excel', 'pdf', 'print'
+    //     ],
+    //     "pageLength": 5
+    // });
 
         </script>
         <!--Style Switcher -->
