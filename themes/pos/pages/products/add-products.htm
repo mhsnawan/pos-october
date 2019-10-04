@@ -45,7 +45,7 @@ function onStart(){
                                     <div class="form-group">
                                         <label>Category</label>
                                         <select class="form-control" name="category_id" required>
-                                            <option>--Select your Category--</option>
+                                            <option value="">--Select your Category--</option>
                                             {% for category in categories %}
                                             <option value="{{category.id}}">{{category.name}}</option>
                                             {% endfor %}
@@ -117,7 +117,7 @@ function onStart(){
                                         <input type="number" name="box_stock" class="form-control" placeholder="5000">
                                     </div>
                                 </div>
-                                
+
 
                             </div>
                             <div class="row">
